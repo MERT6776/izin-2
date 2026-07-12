@@ -584,399 +584,716 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             padding: 7px;
         }
 
-        /* ASANSÖR: tamamen birinci şahıs bakış */
+        /* GERÇEKÇİ ASANSÖR SAHNESİ · BİRİNCİ ŞAHIS */
         .elevator-scene {
             position: fixed;
-            z-index: 100;
             inset: 0;
+            z-index: 100;
             overflow: hidden;
-            background: #030b13;
-            color: #eaf9ff;
-            perspective: 1100px;
-            --ride-shake: 0px;
+            color: #eefbff;
+            background: #040a10;
+            perspective: 1400px;
+            font-family: Inter, "Segoe UI", system-ui, sans-serif;
+        }
+        .elevator-scene[hidden] { display: none !important; }
+        .elevator-scene::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 95;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 50% 48%, transparent 45%, rgba(0,0,0,.30) 78%, rgba(0,0,0,.78) 100%),
+                linear-gradient(180deg, rgba(0,0,0,.18), transparent 22%, transparent 78%, rgba(0,0,0,.34));
         }
         .elevator-scene::after {
             content: "";
             position: absolute;
             inset: 0;
+            z-index: 96;
             pointer-events: none;
-            background: radial-gradient(circle at center, transparent 42%, rgba(0,0,0,.52) 100%);
-            z-index: 15;
+            opacity: .16;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+            mix-blend-mode: soft-light;
         }
-        .cabin {
+        .cinema-world {
             position: absolute;
             inset: 0;
-            transform-origin: center center;
-            animation: cabinIdle 1.8s ease-in-out infinite;
-            background:
-                linear-gradient(90deg, rgba(255,255,255,.04), transparent 10% 90%, rgba(255,255,255,.04)),
-                linear-gradient(#0a1c2c, #07131f);
+            transform-style: preserve-3d;
+            transform-origin: 50% 54%;
+            transition: transform 1.8s cubic-bezier(.22,.78,.18,1), filter 1.2s ease;
         }
-        .riding .cabin { animation: rideVibration .52s ease-in-out infinite; }
-        @keyframes cabinIdle {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(1px); }
-        }
-        @keyframes rideVibration {
-            0%,100% { transform: translate3d(0,0,0); }
-            25% { transform: translate3d(.5px,-.6px,0); }
-            50% { transform: translate3d(-.4px,.5px,0); }
-            75% { transform: translate3d(.3px,-.2px,0); }
-        }
-        .cabin-ceiling {
+        .scene-lobby, .scene-cabin {
             position: absolute;
-            inset: 0 0 auto;
-            height: 22%;
-            background: linear-gradient(#101f2c, #09131d);
-            clip-path: polygon(0 0, 100% 0, 82% 100%, 18% 100%);
-            box-shadow: inset 0 -20px 30px rgba(0,0,0,.4);
+            inset: 0;
+            overflow: hidden;
+            transition: opacity 1.1s ease, transform 2.6s cubic-bezier(.18,.75,.17,1);
         }
-        .ceiling-light {
-            position: absolute;
-            left: 50%; top: 5%;
-            transform: translateX(-50%);
-            width: min(55vw, 500px); height: 18px;
-            border-radius: 50%;
-            background: #d7f7ff;
-            box-shadow: 0 0 25px #7ddfff, 0 0 70px rgba(75,209,255,.42);
-        }
-        .side-wall {
-            position: absolute;
-            top: 12%; bottom: 0; width: 20%;
-            background: linear-gradient(90deg, #091827, #132a3b);
-            border: 1px solid rgba(141,217,255,.12);
-        }
-        .side-wall.left { left: 0; clip-path: polygon(0 0,100% 12%,100% 100%,0 100%); }
-        .side-wall.right { right: 0; transform: scaleX(-1); clip-path: polygon(0 0,100% 12%,100% 100%,0 100%); }
-        .metal-strip {
-            position: absolute;
-            top: 17%; bottom: 0; width: 6px;
-            background: linear-gradient(90deg,#2d5269,#b8e7fa,#25455a);
-            opacity: .42;
-        }
-        .metal-strip.one { left: 18%; }
-        .metal-strip.two { right: 18%; }
 
-        .floor-display {
+        /* DIŞ LOBİ */
+        .scene-lobby {
+            z-index: 10;
+            background:
+                linear-gradient(90deg, rgba(255,255,255,.03), transparent 13% 87%, rgba(255,255,255,.03)),
+                linear-gradient(180deg, #d8e2e8 0 18%, #c1cdd4 18% 76%, #66747d 76% 100%);
+        }
+        .lobby-ceiling {
             position: absolute;
-            z-index: 25;
-            top: max(7%, env(safe-area-inset-top));
+            left: -10%; right: -10%; top: -14%; height: 35%;
+            background: linear-gradient(#f8fbfc, #ccd7dd);
+            transform: perspective(700px) rotateX(-54deg);
+            box-shadow: 0 30px 65px rgba(0,0,0,.17);
+        }
+        .lobby-light {
+            position: absolute;
+            top: 5%; left: 50%;
+            width: min(42vw, 430px); height: 20px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: #f3fcff;
+            box-shadow: 0 0 22px #fff, 0 0 70px rgba(139,221,255,.42);
+        }
+        .lobby-wall-panel {
+            position: absolute;
+            top: 12%; bottom: 16%; width: 18%;
+            background: linear-gradient(90deg,#b9c5cc,#e2e9ed 55%,#a8b5bd);
+            box-shadow: inset 0 0 0 1px rgba(50,70,82,.18);
+        }
+        .lobby-wall-panel.left { left: 0; }
+        .lobby-wall-panel.right { right: 0; transform: scaleX(-1); }
+        .lobby-floor {
+            position: absolute;
+            left: -20%; right: -20%; bottom: -22%; height: 54%;
+            background:
+                repeating-linear-gradient(90deg, rgba(24,49,63,.18) 0 1px, transparent 1px 115px),
+                repeating-linear-gradient(0deg, rgba(24,49,63,.12) 0 1px, transparent 1px 92px),
+                linear-gradient(#7b8992,#d6e0e4);
+            transform: perspective(650px) rotateX(63deg);
+            transform-origin: top;
+        }
+        .lobby-elevator {
+            position: absolute;
+            left: 50%; top: 11%; bottom: 10%;
+            width: min(58vw, 680px);
+            transform: translateX(-50%);
+            border: clamp(10px,1.2vw,18px) solid #53626d;
+            border-bottom-width: 24px;
+            background: #080d12;
+            box-shadow: 0 20px 50px rgba(0,0,0,.34), inset 0 0 0 2px rgba(255,255,255,.14);
+        }
+        .lobby-header-display {
+            position: absolute;
+            z-index: 8;
+            left: 50%; top: -56px;
+            transform: translateX(-50%);
+            min-width: 124px;
+            padding: 9px 18px;
+            border-radius: 8px;
+            text-align: center;
+            color: #68e6ff;
+            background: #03080d;
+            border: 1px solid #486370;
+            font: 900 1.25rem/1 ui-monospace, monospace;
+            letter-spacing: .15em;
+            text-shadow: 0 0 12px rgba(91,226,255,.7);
+        }
+        .lobby-door-wrap, .cabin-door-wrap {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            background: #02070b;
+        }
+        .steel-door {
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 50.2%;
+            background:
+                repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 2px, transparent 2px 14px),
+                linear-gradient(90deg,#283944,#788b96 48%,#2b3c47);
+            box-shadow: inset 0 0 28px rgba(0,0,0,.38);
+            transition: transform 2.15s cubic-bezier(.72,.02,.18,1);
+        }
+        .steel-door.left { left: 0; border-right: 1px solid #0b1217; }
+        .steel-door.right { right: 0; transform: scaleX(-1); border-left: 1px solid rgba(255,255,255,.18); }
+        .lobby-open .lobby-door-wrap .steel-door.left { transform: translateX(-100%); }
+        .lobby-open .lobby-door-wrap .steel-door.right { transform: scaleX(-1) translateX(-100%); }
+        .call-panel {
+            position: absolute;
+            z-index: 12;
+            right: max(5%, 34px); top: 42%;
+            width: 62px;
+            padding: 12px 9px;
+            border-radius: 12px;
+            background: linear-gradient(145deg,#3a4c58,#17242d);
+            border: 1px solid rgba(255,255,255,.22);
+            box-shadow: 0 12px 25px rgba(0,0,0,.28);
+        }
+        .call-button {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            color: #dce9ee;
+            background: #111c23;
+            border: 2px solid #81939d;
+            box-shadow: inset 0 0 10px rgba(0,0,0,.8);
+            font-weight: 1000;
+        }
+        .calling .call-button {
+            color: #071117;
+            background: #6fe7ff;
+            border-color: #bdf5ff;
+            box-shadow: 0 0 20px rgba(77,220,255,.85), inset 0 0 10px rgba(255,255,255,.8);
+        }
+        .lobby-person {
+            position: absolute;
+            bottom: 13%;
+            width: 78px; height: 220px;
+            opacity: .78;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,.2));
+        }
+        .lobby-person.one { left: 9%; transform: scale(.84); }
+        .lobby-person.two { right: 8%; transform: scale(.72); }
+
+        /* KABİN */
+        .scene-cabin {
+            z-index: 9;
+            opacity: 0;
+            transform: scale(.82) translateZ(-140px);
+            background:
+                linear-gradient(90deg, #07131d 0 20%, #1b2c38 20% 80%, #07131d 80%),
+                #0a1822;
+        }
+        .inside .scene-lobby { opacity: 0; transform: scale(1.34) translateZ(200px); pointer-events: none; }
+        .inside .scene-cabin { opacity: 1; transform: scale(1) translateZ(0); }
+        .cabin-ceiling-real {
+            position: absolute;
+            left: -8%; right: -8%; top: -11%; height: 34%;
+            background: linear-gradient(#182832,#09131b);
+            transform: perspective(700px) rotateX(-54deg);
+            box-shadow: 0 35px 70px rgba(0,0,0,.54);
+        }
+        .cabin-light-real {
+            position: absolute;
+            top: 5.5%; left: 50%;
+            transform: translateX(-50%);
+            width: min(48vw, 500px); height: 18px;
+            border-radius: 50%;
+            background: #dcf8ff;
+            box-shadow: 0 0 26px #8ee9ff, 0 0 90px rgba(84,211,255,.38);
+        }
+        .cabin-side {
+            position: absolute;
+            top: 15%; bottom: 0; width: 21%;
+            background:
+                linear-gradient(90deg, rgba(255,255,255,.04), transparent),
+                linear-gradient(#122532,#07131c);
+            border: 1px solid rgba(153,218,242,.12);
+        }
+        .cabin-side.left { left: 0; clip-path: polygon(0 0,100% 10%,100% 100%,0 100%); }
+        .cabin-side.right { right: 0; transform: scaleX(-1); clip-path: polygon(0 0,100% 10%,100% 100%,0 100%); }
+        .cabin-back {
+            position: absolute;
+            left: 21%; right: 21%; top: 15%; bottom: 0;
+            background:
+                linear-gradient(90deg, transparent 49.5%, rgba(194,235,249,.16) 50%, transparent 50.5%),
+                linear-gradient(#132633,#07131c);
+            box-shadow: inset 0 0 60px rgba(0,0,0,.36);
+        }
+        .inside-display {
+            position: absolute;
+            z-index: 30;
+            top: max(5.5%, env(safe-area-inset-top));
             left: 50%;
             transform: translateX(-50%);
-            min-width: 160px;
-            padding: 10px 18px 8px;
+            min-width: 185px;
+            padding: 10px 20px 8px;
             text-align: center;
-            border-radius: 12px;
-            border: 1px solid rgba(92,220,255,.55);
-            background: #02090f;
-            box-shadow: inset 0 0 18px rgba(71,212,255,.1), 0 0 22px rgba(45,194,240,.18);
+            border-radius: 11px;
+            color: #69e8ff;
+            background: #02080d;
+            border: 1px solid #4e7384;
+            box-shadow: inset 0 0 18px rgba(89,221,255,.12), 0 0 24px rgba(59,207,247,.16);
         }
-        .floor-value {
+        .inside-display strong {
             display: block;
-            font: 900 clamp(1.6rem, 6vw, 2.5rem)/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-            color: #6de8ff;
-            text-shadow: 0 0 14px rgba(76,224,255,.65);
-            letter-spacing: .08em;
+            font: 1000 clamp(1.5rem,5.5vw,2.35rem)/1 ui-monospace, monospace;
+            letter-spacing: .1em;
+            text-shadow: 0 0 14px rgba(80,225,255,.75);
         }
-        .floor-label {
+        .inside-display span {
             display: block;
             margin-top: 5px;
-            font-size: .62rem;
-            letter-spacing: .2em;
-            color: #8ba8ba;
+            color: #94adba;
+            font-size: .63rem;
+            letter-spacing: .24em;
+            font-weight: 900;
         }
         .half-level {
             position: absolute;
-            z-index: 26;
-            top: calc(max(7%, env(safe-area-inset-top)) + 82px);
+            z-index: 31;
+            top: calc(max(5.5%, env(safe-area-inset-top)) + 79px);
             left: 50%;
-            transform: translate(-50%, -8px);
+            transform: translate(-50%,-9px);
             opacity: 0;
-            border: 1px solid rgba(255,211,99,.5);
-            background: rgba(34,26,8,.86);
-            color: #ffdb79;
-            border-radius: 99px;
             padding: 7px 13px;
-            font-size: .72rem;
-            font-weight: 900;
-            letter-spacing: .08em;
-            transition: opacity .5s ease, transform .5s ease;
+            border-radius: 999px;
+            color: #ffe18c;
+            background: rgba(45,33,7,.92);
+            border: 1px solid rgba(255,220,116,.5);
+            font-size: .7rem;
+            font-weight: 1000;
+            letter-spacing: .1em;
+            transition: .5s ease;
         }
-        .arrived .half-level.show { opacity: 1; transform: translate(-50%, 0); }
-
-        .door-frame {
+        .half-level.show { opacity: 1; transform: translate(-50%,0); }
+        .cabin-portal {
             position: absolute;
-            z-index: 7;
-            left: 19%;
-            right: 19%;
-            top: 18%;
-            bottom: 4%;
-            border: clamp(8px,1.5vw,18px) solid #355064;
-            border-bottom-width: clamp(10px,2vw,24px);
-            background: #02070c;
-            box-shadow: inset 0 0 0 2px rgba(206,244,255,.15), 0 18px 45px rgba(0,0,0,.5);
+            z-index: 18;
+            left: 22%; right: 22%; top: 18%; bottom: 3%;
+            border: clamp(8px,1.4vw,17px) solid #3b5361;
+            border-bottom-width: 20px;
+            background: #02070b;
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 20px 50px rgba(0,0,0,.5);
             overflow: hidden;
         }
-        .hallway {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            background:
-                linear-gradient(rgba(203,236,247,.9),rgba(169,213,230,.9)) top/100% 18% no-repeat,
-                linear-gradient(90deg,#bed5de 0 13%,#edf8fb 13% 87%,#bed5de 87% 100%);
-            transform: scale(.94);
-            transition: transform 2s cubic-bezier(.2,.7,.2,1);
-        }
-        .hallway::before {
-            content: "";
-            position: absolute;
-            left: -10%; right: -10%; bottom: -18%;
-            height: 48%;
-            background:
-                repeating-linear-gradient(90deg, rgba(27,75,94,.13) 0 1px, transparent 1px 82px),
-                linear-gradient(#95b7c4,#dcebf0);
-            transform: perspective(500px) rotateX(63deg);
-            transform-origin: top;
-        }
-        .hallway::after {
-            content: "PERSONEL VE ÇALIŞMA İLİŞKİLERİ";
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            color: #183f54;
-            font-weight: 900;
-            letter-spacing: .16em;
-            font-size: clamp(.68rem, 2vw, 1rem);
-        }
-        .walking .hallway { transform: scale(1.06); }
+        .cabin-door-wrap { z-index: 24; }
+        .office-open .cabin-door-wrap .steel-door.left { transform: translateX(-100%); }
+        .office-open .cabin-door-wrap .steel-door.right { transform: scaleX(-1) translateX(-100%); }
 
-        .elevator-doors {
+        /* DEPARTMAN PANELİ */
+        .department-panel {
             position: absolute;
-            inset: 0;
-            z-index: 12;
-            pointer-events: none;
+            z-index: 36;
+            right: 3.2%; top: 24%;
+            width: min(23vw, 250px);
+            padding: 14px;
+            border-radius: 15px;
+            background: linear-gradient(150deg,#445866,#162731 52%,#0b171f);
+            border: 1px solid rgba(207,240,252,.26);
+            box-shadow: 0 20px 40px rgba(0,0,0,.34), inset 0 0 20px rgba(255,255,255,.04);
+            transform-origin: right center;
         }
-        .door {
-            position: absolute;
-            top: 0; bottom: 0; width: 50.2%;
-            background:
-                repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, transparent 2px 12px),
-                linear-gradient(90deg,#253b4a,#668194 45%,#233a4a);
-            transition: transform 2.35s cubic-bezier(.72,.02,.18,1);
-            box-shadow: inset 0 0 25px rgba(0,0,0,.34);
+        .department-title {
+            margin-bottom: 10px;
+            color: #a7bfcb;
+            text-align: center;
+            font-size: .65rem;
+            font-weight: 1000;
+            letter-spacing: .15em;
         }
-        .door.left { left: 0; border-right: 1px solid #0a1117; }
-        .door.right { right: 0; border-left: 1px solid rgba(218,244,255,.18); transform: scaleX(-1); }
-        .doors-open .door.left { transform: translateX(-100%); }
-        .doors-open .door.right { transform: scaleX(-1) translateX(-100%); }
-
-        .speed-lines {
-            position: absolute;
-            z-index: 5;
-            left: 20%; right: 20%; top: 18%; bottom: 4%;
-            opacity: 0;
-            pointer-events: none;
-            background: repeating-linear-gradient(180deg, transparent 0 26px, rgba(84,210,255,.12) 27px 29px);
-            animation: speedLines .55s linear infinite;
+        .department-button {
+            width: 100%;
+            min-height: 42px;
+            margin: 6px 0;
+            padding: 8px 9px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+            color: #dce9ee;
+            background: linear-gradient(#1a2a34,#0b151c);
+            border: 1px solid #607580;
+            box-shadow: inset 0 0 10px rgba(0,0,0,.42);
+            font-size: clamp(.56rem,1.15vw,.78rem);
+            line-height: 1.15;
+            font-weight: 850;
         }
-        .riding .speed-lines { opacity: 1; }
-        @keyframes speedLines { to { background-position-y: 58px; } }
-
-        .first-person-hands {
-            position: absolute;
-            z-index: 30;
-            left: 0; right: 0; bottom: -18px;
-            height: 32%;
-            pointer-events: none;
+        .department-button .lamp {
+            flex: 0 0 11px;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: #263840;
+            border: 1px solid #7a8f98;
         }
-        .hand {
-            position: absolute;
-            bottom: -12%;
-            width: clamp(72px, 15vw, 150px);
-            height: clamp(170px, 30vw, 300px);
-            border-radius: 50% 50% 32% 32%;
-            background: linear-gradient(90deg,#ba7d53,#efbd8e 48%,#c98b5e);
-            box-shadow: inset 10px 0 20px rgba(88,42,20,.22);
-            opacity: .88;
+        .selecting .department-button.personnel {
+            color: #06131a;
+            background: linear-gradient(#b8f5ff,#4ed7f4);
+            border-color: #d7fbff;
+            box-shadow: 0 0 22px rgba(71,220,251,.72), inset 0 0 12px rgba(255,255,255,.75);
+            transform: translateY(2px);
         }
-        .hand.left { left: 5%; transform: rotate(10deg); }
-        .hand.right { right: 5%; transform: rotate(-10deg); }
-        .receiving .hand.right {
-            animation: takeNote 1.8s cubic-bezier(.3,.7,.2,1) forwards;
-        }
-        @keyframes takeNote {
-            0% { transform: rotate(-10deg) translate(0,0); }
-            55% { transform: rotate(-4deg) translate(-14vw,-24vh); }
-            100% { transform: rotate(-8deg) translate(-6vw,-7vh); }
+        .selecting .department-button.personnel .lamp {
+            background: #fff;
+            border-color: #fff;
+            box-shadow: 0 0 14px #fff;
         }
 
-        .secretary {
+        /* KABİNDEKİ OFİS ÇALIŞANLARI */
+        .passenger {
             position: absolute;
-            z-index: 4;
-            left: 50%;
-            bottom: 12%;
-            width: clamp(95px, 16vw, 150px);
-            height: clamp(220px, 43vw, 390px);
-            transform: translate(-50%, 26%) scale(.38);
-            opacity: 0;
-            transition: transform 3.2s cubic-bezier(.18,.72,.16,1), opacity .8s ease;
-            filter: drop-shadow(0 14px 15px rgba(27,62,75,.25));
+            z-index: 29;
+            bottom: 5%;
+            width: clamp(82px,11vw,138px);
+            height: clamp(230px,38vw,410px);
+            transform-origin: bottom;
+            filter: drop-shadow(0 18px 18px rgba(0,0,0,.32));
+            animation: passengerBreath 3.2s ease-in-out infinite;
         }
-        .secretary.approach { transform: translate(-50%, 0) scale(1); opacity: 1; }
-        .secretary-head {
+        .passenger.p1 { left: 23.5%; transform: scale(.82); }
+        .passenger.p2 { left: 42%; transform: translateX(-50%) scale(.92); animation-delay: -.9s; }
+        .passenger.p3 { right: 24%; transform: scale(.78); animation-delay: -1.7s; }
+        @keyframes passengerBreath {
+            0%,100% { margin-bottom: 0; }
+            50% { margin-bottom: 2px; }
+        }
+        .person-head {
             position: absolute;
             left: 50%; top: 0;
-            width: 38%; aspect-ratio: .82;
+            width: 36%; aspect-ratio: .82;
             transform: translateX(-50%);
-            border-radius: 48% 48% 44% 44%;
-            background: linear-gradient(90deg,#d39a6d,#f3c49b);
-            border: 6px solid #3d241f;
-            border-bottom-width: 2px;
+            border-radius: 46% 46% 42% 42%;
+            background: linear-gradient(90deg,#a96d46,#e2aa7e 52%,#b97951);
+            box-shadow: inset 7px 0 12px rgba(76,34,17,.16);
         }
-        .secretary-hair {
+        .person-hair {
             position: absolute;
-            left: 24%; top: -2%;
-            width: 52%; height: 27%;
-            border-radius: 50% 50% 35% 35%;
-            background: #2c1b18;
+            left: 31%; top: -1%; width: 38%; height: 12%;
+            border-radius: 50% 50% 24% 24%;
+            background: #241b19;
         }
-        .secretary-body {
+        .person-neck {
             position: absolute;
-            left: 19%; right: 19%; top: 23%; bottom: 7%;
-            clip-path: polygon(22% 0,78% 0,100% 100%,0 100%);
-            border-radius: 20px 20px 8px 8px;
-            background:
-                linear-gradient(90deg, transparent 47%, rgba(255,255,255,.42) 48% 52%, transparent 53%),
-                linear-gradient(#172b45,#0c1c30);
+            left: 44%; top: 15%; width: 12%; height: 9%;
+            background: #bd835e;
         }
-        .secretary-collar {
+        .person-torso {
             position: absolute;
-            top: 23%; left: 37%; width: 26%; height: 16%;
-            background: white;
-            clip-path: polygon(0 0,50% 75%,100% 0,85% 100%,15% 100%);
+            left: 22%; right: 22%; top: 21%; bottom: 25%;
+            border-radius: 18px 18px 8px 8px;
+            background: linear-gradient(90deg,#10263a,#274864 50%,#0e2234);
         }
-        .secretary-arm {
+        .passenger.p2 .person-torso { background: linear-gradient(90deg,#343b46,#69717d 50%,#2d343e); }
+        .passenger.p3 .person-torso { background: linear-gradient(90deg,#3c2b42,#6f4d76 50%,#322337); }
+        .person-shirt {
             position: absolute;
-            top: 35%;
-            width: 16%; height: 45%;
-            border-radius: 30px;
-            background: #172b45;
-            transform-origin: top;
-            transition: transform 1.4s ease;
+            left: 43%; top: 22%; width: 14%; height: 20%;
+            background: #edf7fb;
+            clip-path: polygon(0 0,50% 18%,100% 0,76% 100%,24% 100%);
         }
-        .secretary-arm.left { left: 12%; transform: rotate(8deg); }
-        .secretary-arm.right { right: 12%; transform: rotate(-8deg); }
-        .secretary.offer .secretary-arm.right { transform: rotate(42deg) translate(-28%, -4%); }
-        .paper-mini {
+        .person-arm {
+            position: absolute;
+            top: 25%; width: 13%; height: 45%;
+            border-radius: 22px;
+            background: #17334b;
+        }
+        .person-arm.left { left: 15%; transform: rotate(6deg); }
+        .person-arm.right { right: 15%; transform: rotate(-7deg); }
+        .passenger.p2 .person-arm { background: #454e5a; }
+        .passenger.p3 .person-arm { background: #55385a; }
+        .person-leg {
+            position: absolute;
+            bottom: 0; width: 19%; height: 34%;
+            border-radius: 8px 8px 16px 16px;
+            background: #111a23;
+        }
+        .person-leg.left { left: 28%; }
+        .person-leg.right { right: 28%; }
+        .laptop {
             position: absolute;
             z-index: 5;
-            right: -9%;
-            top: 60%;
-            width: 43%; height: 25%;
+            left: 27%; top: 42%; width: 46%; height: 25%;
+            border-radius: 5px;
+            background: linear-gradient(#697985,#26343d);
+            border: 2px solid #899aa4;
+            transform: perspective(180px) rotateX(-18deg);
+            box-shadow: 0 8px 16px rgba(0,0,0,.32);
+        }
+        .laptop::after {
+            content: "";
+            position: absolute;
+            left: 42%; top: 38%; width: 16%; aspect-ratio: 1;
+            border-radius: 50%;
+            background: rgba(202,235,246,.45);
+        }
+        .briefcase {
+            position: absolute;
+            right: 1%; bottom: 17%; width: 38%; height: 27%;
+            border-radius: 7px;
+            background: linear-gradient(#7a4e2f,#3e2819);
+            border: 2px solid #9a6d48;
+            box-shadow: 0 8px 14px rgba(0,0,0,.33);
+        }
+        .briefcase::before {
+            content: "";
+            position: absolute;
+            left: 30%; top: -18%; width: 40%; height: 25%;
+            border: 3px solid #7e583a;
+            border-bottom: 0;
+            border-radius: 8px 8px 0 0;
+        }
+        .tablet {
+            position: absolute;
+            left: 20%; top: 42%; width: 55%; height: 27%;
+            border-radius: 7px;
+            background: #0c151b;
+            border: 3px solid #738791;
+            box-shadow: inset 0 0 0 2px #15262e, 0 7px 14px rgba(0,0,0,.35);
+        }
+        .tablet::after {
+            content: "";
+            position: absolute;
+            inset: 8%;
+            background: linear-gradient(145deg,#1a5b74,#102f42);
+        }
+
+        /* KAMERA BAKIŞLARI */
+        .riding .scene-cabin { animation: cabinRide .46s ease-in-out infinite; }
+        @keyframes cabinRide {
+            0%,100% { margin-top: 0; }
+            25% { margin-top: -.7px; margin-left: .5px; }
+            55% { margin-top: .6px; margin-left: -.4px; }
+            80% { margin-top: -.2px; margin-left: .3px; }
+        }
+        .look-left .cinema-world { transform: rotateY(7deg) translateX(2.5%) scale(1.03); }
+        .look-right .cinema-world { transform: rotateY(-8deg) translateX(-3%) scale(1.04); }
+        .look-up .cinema-world { transform: rotateX(-5deg) translateY(3%) scale(1.03); }
+        .look-panel .cinema-world { transform: rotateY(-10deg) translateX(-5%) scale(1.05); }
+        .look-front .cinema-world { transform: none; }
+
+        /* OFİS KATI */
+        .office-world {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            background:
+                linear-gradient(rgba(235,247,251,.95),rgba(203,229,238,.95)) top/100% 19% no-repeat,
+                linear-gradient(90deg,#a9bdc7 0 11%,#eef8fa 11% 89%,#a9bdc7 89% 100%);
+            transform: scale(.92);
+            transition: transform 3s cubic-bezier(.19,.78,.2,1);
+        }
+        .office-world::before {
+            content: "";
+            position: absolute;
+            left: -12%; right: -12%; bottom: -21%; height: 52%;
+            background:
+                repeating-linear-gradient(90deg, rgba(27,75,94,.13) 0 1px, transparent 1px 86px),
+                repeating-linear-gradient(0deg, rgba(27,75,94,.1) 0 1px, transparent 1px 70px),
+                linear-gradient(#9ab9c5,#e2edf1);
+            transform: perspective(540px) rotateX(64deg);
+            transform-origin: top;
+        }
+        .office-world::after {
+            content: "PERSONEL VE ÇALIŞMA İLİŞKİLERİ";
+            position: absolute;
+            left: 50%; top: 15%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            color: #173e53;
+            font-size: clamp(.72rem,2vw,1.05rem);
+            font-weight: 1000;
+            letter-spacing: .17em;
+        }
+        .office-glass {
+            position: absolute;
+            top: 22%; bottom: 16%; width: 23%;
+            border: 2px solid rgba(51,108,133,.35);
+            background: linear-gradient(135deg,rgba(255,255,255,.42),rgba(111,187,218,.11));
+            box-shadow: inset 0 0 22px rgba(255,255,255,.35);
+        }
+        .office-glass.left { left: 2%; }
+        .office-glass.right { right: 2%; }
+        .office-desk {
+            position: absolute;
+            bottom: 20%; width: 24%; height: 11%;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(#b37d50,#6e472d);
+            box-shadow: 0 10px 16px rgba(0,0,0,.18);
+        }
+        .office-desk.d1 { left: 10%; }
+        .office-desk.d2 { right: 10%; }
+        .office-desk::after {
+            content: "";
+            position: absolute;
+            left: 30%; bottom: 100%; width: 40%; height: 90%;
+            border-radius: 4px;
+            background: #16232b;
+            border: 3px solid #6b7e88;
+        }
+        .office-walker {
+            position: absolute;
+            z-index: 3;
+            bottom: 16%;
+            width: 58px; height: 175px;
+            opacity: .8;
+        }
+        .office-walker.w1 { left: -10%; animation: walkAcross 8s linear infinite; }
+        .office-walker.w2 { right: -10%; transform: scale(.82); animation: walkBack 10s linear infinite 1.3s; }
+        .office-walker.w3 { left: 20%; transform: scale(.65); animation: walkAcross 12s linear infinite 3s; }
+        @keyframes walkAcross { from { left: -12%; } to { left: 108%; } }
+        @keyframes walkBack { from { right: -12%; } to { right: 108%; } }
+        .office-open .office-world { transform: scale(1); }
+        .exiting .scene-cabin { transform: scale(1.18) translateZ(160px); }
+        .exiting .office-world { transform: scale(1.18); }
+
+        /* SEKRETER */
+        .secretary-real {
+            position: absolute;
+            z-index: 8;
+            left: 50%; bottom: 13%;
+            width: clamp(105px,15vw,165px);
+            height: clamp(260px,43vw,430px);
+            transform: translate(-50%,18%) scale(.36);
+            opacity: 0;
+            transition: transform 3.2s cubic-bezier(.18,.74,.16,1), opacity .75s ease;
+            filter: drop-shadow(0 17px 16px rgba(30,65,78,.24));
+        }
+        .secretary-real.approach { transform: translate(-50%,0) scale(1); opacity: 1; }
+        .secretary-real .person-head { top: 1%; width: 35%; background: linear-gradient(90deg,#bd8058,#efbc8f 52%,#c78b63); }
+        .secretary-real .person-hair {
+            left: 26%; top: -1%; width: 48%; height: 18%;
+            border-radius: 50% 50% 28% 28%; background: #2b1c1a;
+        }
+        .secretary-real .person-torso {
+            left: 19%; right: 19%; top: 22%; bottom: 24%;
+            background:
+                linear-gradient(90deg, transparent 47%, rgba(255,255,255,.48) 48% 52%, transparent 53%),
+                linear-gradient(#193450,#0c1e31);
+        }
+        .secretary-real .person-shirt {
+            left: 39%; width: 22%; height: 18%; background: #fff;
+        }
+        .secretary-real .person-arm { background: #16314b; transition: transform 1.35s ease; }
+        .secretary-real .person-arm.right { transform-origin: top; }
+        .secretary-real.offer .person-arm.right { transform: rotate(45deg) translate(-36%,-5%); }
+        .secretary-document {
+            position: absolute;
+            z-index: 10;
+            right: -4%; top: 52%;
+            width: 44%; height: 27%;
+            border-radius: 3px;
             background: #fffdf2;
-            border: 1px solid #c4a96a;
+            border: 1px solid #c9ad70;
             transform: rotate(-8deg);
             opacity: 0;
-            transition: opacity .6s ease .55s;
+            transition: opacity .55s ease .55s;
         }
-        .secretary.offer .paper-mini { opacity: 1; }
+        .secretary-real.offer .secretary-document { opacity: 1; }
 
+        /* BİRİNCİ ŞAHIS ELLERİ */
+        .fp-hands {
+            position: absolute;
+            z-index: 80;
+            left: 0; right: 0; bottom: -2%;
+            height: 36%;
+            pointer-events: none;
+        }
+        .fp-arm {
+            position: absolute;
+            bottom: -24%;
+            width: clamp(120px,20vw,240px);
+            height: clamp(260px,39vw,470px);
+            transform-origin: bottom;
+            transition: transform 1.3s cubic-bezier(.2,.8,.2,1), opacity .7s ease;
+        }
+        .fp-arm.left { left: -1%; transform: rotate(9deg); }
+        .fp-arm.right { right: -1%; transform: rotate(-9deg); }
+        .sleeve {
+            position: absolute;
+            left: 19%; right: 19%; bottom: 0; height: 70%;
+            border-radius: 38% 38% 16% 16%;
+            background:
+                linear-gradient(90deg,#091a2a,#1d3e5d 48%,#0a2034),
+                #102d45;
+            box-shadow: inset 15px 0 22px rgba(0,0,0,.28), inset -8px 0 18px rgba(255,255,255,.05);
+        }
+        .cuff {
+            position: absolute;
+            left: 22%; right: 22%; top: 25%; height: 13%;
+            border-radius: 10px;
+            background: #e9f2f5;
+            border: 1px solid #a8bbc3;
+        }
+        .palm {
+            position: absolute;
+            left: 25%; top: 1%; width: 50%; height: 34%;
+            border-radius: 45% 45% 40% 40%;
+            background: linear-gradient(90deg,#ad704b,#edba8d 50%,#c8865c);
+            box-shadow: inset 9px 0 13px rgba(91,43,22,.17);
+        }
+        .finger {
+            position: absolute;
+            top: -5%;
+            width: 13%; height: 28%;
+            border-radius: 45% 45% 35% 35%;
+            background: linear-gradient(90deg,#b67852,#edba8d 52%,#c88961);
+            transform-origin: bottom;
+        }
+        .finger.f1 { left: 22%; transform: rotate(-10deg); height: 25%; }
+        .finger.f2 { left: 34%; transform: rotate(-4deg); height: 30%; }
+        .finger.f3 { left: 47%; height: 32%; }
+        .finger.f4 { left: 60%; transform: rotate(5deg); height: 29%; }
+        .finger.f5 { left: 71%; transform: rotate(15deg); height: 23%; top: 4%; }
+        .calling .fp-arm.right { transform: rotate(-4deg) translate(-13vw,-18vh) scale(.9); }
+        .selecting .fp-arm.right { transform: rotate(-28deg) translate(-18vw,-26vh) scale(.86); }
+        .receiving .fp-arm.right { transform: rotate(-14deg) translate(-20vw,-26vh) scale(.92); }
+        .entering .fp-hands { animation: walkHands .62s ease-in-out infinite; }
+        @keyframes walkHands {
+            0%,100% { transform: translateY(0) rotate(.2deg); }
+            50% { transform: translateY(5px) rotate(-.2deg); }
+        }
+
+        /* BELGE */
         .note-overlay {
             position: fixed;
-            z-index: 160;
+            z-index: 180;
             inset: 0;
             display: grid;
             place-items: center;
-            padding: 22px;
-            background: rgba(2,9,15,.18);
+            padding: 20px;
+            background: rgba(2,9,15,.25);
             opacity: 0;
             pointer-events: none;
             transition: opacity .8s ease;
         }
         .note-overlay.show { opacity: 1; }
         .note-paper {
-            width: min(560px, 94vw);
-            min-height: 320px;
-            transform: translateY(28vh) rotate(-7deg) scale(.72);
-            transition: transform 1.3s cubic-bezier(.2,.82,.2,1);
-            border-radius: 8px;
-            color: #173044;
-            background:
-                linear-gradient(rgba(32,93,122,.08) 1px, transparent 1px) 0 64px/100% 34px,
-                #fffdf1;
-            box-shadow: 0 35px 90px rgba(0,0,0,.5);
-            padding: clamp(28px,7vw,56px);
+            width: min(600px,94vw);
+            min-height: 390px;
             position: relative;
             overflow: hidden;
+            padding: clamp(30px,7vw,62px);
+            border-radius: 7px;
+            color: #173044;
+            background:
+                linear-gradient(rgba(33,91,119,.075) 1px, transparent 1px) 0 74px/100% 36px,
+                #fffdf1;
+            border: 1px solid #d8c692;
+            box-shadow: 0 42px 100px rgba(0,0,0,.55);
+            transform: translateY(35vh) rotate(-7deg) scale(.72);
+            transition: transform 1.35s cubic-bezier(.2,.83,.2,1);
         }
-        .note-overlay.show .note-paper { transform: translateY(0) rotate(-1.2deg) scale(1); }
+        .note-overlay.show .note-paper { transform: translateY(0) rotate(-1deg) scale(1); }
         .note-paper::before {
             content: "";
             position: absolute;
-            inset: 14px;
-            border: 2px solid rgba(29,87,112,.18);
-            pointer-events: none;
+            inset: 15px;
+            border: 2px solid rgba(31,87,112,.17);
         }
-        .note-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 1000;
-            letter-spacing: .08em;
-            color: #245874;
-        }
-        .note-logo-mark {
-            width: 36px; height: 36px;
-            display: grid; place-items: center;
-            border-radius: 10px;
-            color: #fff;
-            background: linear-gradient(145deg,#168bc7,#0b456b);
-        }
-        .note-title {
-            margin: 42px 0 10px;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: clamp(1.35rem,4.8vw,2rem);
-            color: #19394e;
-        }
-        .note-balance {
-            font-size: clamp(2.15rem,9vw,4.4rem);
-            line-height: 1;
-            font-weight: 1000;
-            color: #087eb7;
-            margin: 20px 0 10px;
-            letter-spacing: -.045em;
-        }
-        .note-caption { color: #4f6c7c; font-weight: 700; }
-        .note-signature {
-            margin-top: 34px;
-            text-align: right;
-            font-family: "Segoe Script", cursive;
-            color: #315b70;
-        }
-        .skip-animation {
-            position: fixed;
-            z-index: 190;
-            right: max(14px, env(safe-area-inset-right));
-            bottom: max(14px, env(safe-area-inset-bottom));
-            border: 1px solid rgba(159,226,255,.28);
-            background: rgba(3,16,27,.72);
-            color: #dff7ff;
-            border-radius: 14px;
-            padding: 11px 15px;
-            cursor: pointer;
-            backdrop-filter: blur(12px);
-            font-weight: 800;
-        }
+        .note-logo { display: flex; align-items: center; gap: 11px; color: #245874; font-weight: 1000; letter-spacing: .08em; }
+        .note-logo-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; color: #fff; background: linear-gradient(145deg,#168bc7,#0b456b); }
+        .note-title { margin: 44px 0 8px; font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.35rem,4.8vw,2.1rem); color: #19394e; }
+        .note-caption { color: #4f6c7c; font-weight: 750; }
+        .note-balance { margin: 20px 0 12px; font-size: clamp(2.3rem,9vw,4.7rem); line-height: 1; color: #087eb7; font-weight: 1000; letter-spacing: -.045em; }
+        .note-signature { margin-top: 38px; text-align: right; color: #315b70; }
+        .note-signature .signature-script { display: block; font-family: "Segoe Script","Brush Script MT",cursive; font-size: clamp(1.25rem,4vw,1.85rem); transform: rotate(-4deg); }
+        .note-signature .signature-role { display: block; margin-top: 3px; font-family: Inter,"Segoe UI",sans-serif; font-size: .82rem; font-weight: 850; }
         .elevator-status {
             position: fixed;
             z-index: 190;
-            left: max(14px, env(safe-area-inset-left));
-            bottom: max(14px, env(safe-area-inset-bottom));
-            color: #b5d7e7;
-            font-size: .78rem;
-            letter-spacing: .08em;
+            left: 50%; bottom: max(15px,env(safe-area-inset-bottom));
+            transform: translateX(-50%);
+            max-width: calc(100vw - 30px);
+            padding: 10px 16px;
+            border-radius: 999px;
+            color: #d9f5ff;
+            background: rgba(3,16,26,.77);
+            border: 1px solid rgba(141,222,255,.24);
+            backdrop-filter: blur(12px);
+            font-size: clamp(.68rem,2vw,.82rem);
+            font-weight: 900;
+            letter-spacing: .09em;
+            text-align: center;
         }
 
         /* DASHBOARD */
@@ -1422,7 +1739,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                                 <div class="update-info"><span data-i18n="updated">Son güncelleme:</span> <strong id="updatedAt">-</strong></div>
                             </div>
                             <div class="progress-ring" id="progressRing">
-                                <span><b id="ringValue">0</b><span data-i18n="leaveLevel">İzin seviyesi</span></span>
+                                <span><b id="ringValue">0</b><span data-i18n="leaveLevel">Kat</span></span>
                             </div>
                         </div>
                     </article>
@@ -1499,44 +1816,126 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         </section>
     </main>
 
-    <!-- Birinci şahıs asansör sahnesi -->
-    <section class="elevator-scene" id="elevatorScene" hidden aria-label="İzin asansörü animasyonu">
-        <div class="cabin">
-            <div class="cabin-ceiling"></div>
-            <div class="ceiling-light"></div>
-            <div class="side-wall left"></div>
-            <div class="side-wall right"></div>
-            <div class="metal-strip one"></div>
-            <div class="metal-strip two"></div>
+    <!-- Birinci şahıs, zorunlu asansör animasyonu -->
+    <section class="elevator-scene look-front" id="elevatorScene" hidden aria-label="Asansör animasyonu">
+        <div class="cinema-world" id="cinemaWorld">
+            <div class="scene-lobby">
+                <div class="lobby-ceiling"></div>
+                <div class="lobby-light"></div>
+                <div class="lobby-wall-panel left"></div>
+                <div class="lobby-wall-panel right"></div>
+                <div class="lobby-floor"></div>
 
-            <div class="floor-display">
-                <span class="floor-value" id="floorValue">0</span>
-                <span class="floor-label" data-i18n="leaveLevelUpper">İZİN SEVİYESİ</span>
+                <div class="lobby-person one">
+                    <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                    <div class="person-torso"></div><div class="person-shirt"></div>
+                    <div class="person-arm left"></div><div class="person-arm right"></div>
+                    <div class="person-leg left"></div><div class="person-leg right"></div>
+                    <div class="briefcase"></div>
+                </div>
+                <div class="lobby-person two">
+                    <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                    <div class="person-torso"></div><div class="person-shirt"></div>
+                    <div class="person-arm left"></div><div class="person-arm right"></div>
+                    <div class="person-leg left"></div><div class="person-leg right"></div>
+                    <div class="tablet"></div>
+                </div>
+
+                <div class="lobby-elevator">
+                    <div class="lobby-header-display" id="lobbyDisplay">G</div>
+                    <div class="lobby-door-wrap">
+                        <div class="steel-door left"></div>
+                        <div class="steel-door right"></div>
+                    </div>
+                    <div class="call-panel"><div class="call-button">▲</div></div>
+                </div>
             </div>
-            <div class="half-level" id="halfLevel" data-i18n="halfDay">ARA SEVİYE · ½ GÜN</div>
 
-            <div class="door-frame">
-                <div class="hallway">
-                    <div class="secretary" id="secretary">
-                        <div class="secretary-hair"></div>
-                        <div class="secretary-head"></div>
-                        <div class="secretary-collar"></div>
-                        <div class="secretary-body"></div>
-                        <div class="secretary-arm left"></div>
-                        <div class="secretary-arm right"></div>
-                        <div class="paper-mini"></div>
+            <div class="scene-cabin">
+                <div class="cabin-ceiling-real"></div>
+                <div class="cabin-light-real"></div>
+                <div class="cabin-side left"></div>
+                <div class="cabin-side right"></div>
+                <div class="cabin-back"></div>
+
+                <div class="inside-display">
+                    <strong id="floorValue">0</strong>
+                    <span data-i18n="leaveLevelUpper">KAT</span>
+                </div>
+                <div class="half-level" id="halfLevel" data-i18n="halfDay">ARA KAT · ½ GÜN</div>
+
+                <div class="passenger p1">
+                    <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                    <div class="person-torso"></div><div class="person-shirt"></div>
+                    <div class="person-arm left"></div><div class="person-arm right"></div>
+                    <div class="person-leg left"></div><div class="person-leg right"></div>
+                    <div class="laptop"></div>
+                </div>
+                <div class="passenger p2">
+                    <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                    <div class="person-torso"></div><div class="person-shirt"></div>
+                    <div class="person-arm left"></div><div class="person-arm right"></div>
+                    <div class="person-leg left"></div><div class="person-leg right"></div>
+                    <div class="briefcase"></div>
+                </div>
+                <div class="passenger p3">
+                    <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                    <div class="person-torso"></div><div class="person-shirt"></div>
+                    <div class="person-arm left"></div><div class="person-arm right"></div>
+                    <div class="person-leg left"></div><div class="person-leg right"></div>
+                    <div class="tablet"></div>
+                </div>
+
+                <div class="department-panel">
+                    <div class="department-title">DEPARTMAN SEÇİMİ</div>
+                    <div class="department-button"><span class="lamp"></span><span>İdari İşler</span></div>
+                    <div class="department-button"><span class="lamp"></span><span>İSG</span></div>
+                    <div class="department-button"><span class="lamp"></span><span>Yönetim</span></div>
+                    <div class="department-button"><span class="lamp"></span><span>Kalite</span></div>
+                    <div class="department-button personnel"><span class="lamp"></span><span>Personel ve Çalışma İlişkileri</span></div>
+                </div>
+
+                <div class="cabin-portal">
+                    <div class="office-world">
+                        <div class="office-glass left"></div><div class="office-glass right"></div>
+                        <div class="office-desk d1"></div><div class="office-desk d2"></div>
+                        <div class="office-walker w1">
+                            <div class="person-hair"></div><div class="person-head"></div><div class="person-torso"></div>
+                            <div class="person-arm left"></div><div class="person-arm right"></div><div class="person-leg left"></div><div class="person-leg right"></div>
+                        </div>
+                        <div class="office-walker w2">
+                            <div class="person-hair"></div><div class="person-head"></div><div class="person-torso"></div>
+                            <div class="person-arm left"></div><div class="person-arm right"></div><div class="person-leg left"></div><div class="person-leg right"></div>
+                        </div>
+                        <div class="office-walker w3">
+                            <div class="person-hair"></div><div class="person-head"></div><div class="person-torso"></div>
+                            <div class="person-arm left"></div><div class="person-arm right"></div><div class="person-leg left"></div><div class="person-leg right"></div>
+                        </div>
+
+                        <div class="secretary-real" id="secretary">
+                            <div class="person-hair"></div><div class="person-head"></div><div class="person-neck"></div>
+                            <div class="person-torso"></div><div class="person-shirt"></div>
+                            <div class="person-arm left"></div><div class="person-arm right"></div>
+                            <div class="person-leg left"></div><div class="person-leg right"></div>
+                            <div class="secretary-document"></div>
+                        </div>
+                    </div>
+                    <div class="cabin-door-wrap">
+                        <div class="steel-door left"></div>
+                        <div class="steel-door right"></div>
                     </div>
                 </div>
-                <div class="speed-lines"></div>
-                <div class="elevator-doors">
-                    <div class="door left"></div>
-                    <div class="door right"></div>
-                </div>
             </div>
+        </div>
 
-            <div class="first-person-hands">
-                <div class="hand left"></div>
-                <div class="hand right"></div>
+        <div class="fp-hands">
+            <div class="fp-arm left">
+                <div class="sleeve"></div><div class="cuff"></div><div class="palm"></div>
+                <div class="finger f1"></div><div class="finger f2"></div><div class="finger f3"></div><div class="finger f4"></div><div class="finger f5"></div>
+            </div>
+            <div class="fp-arm right">
+                <div class="sleeve"></div><div class="cuff"></div><div class="palm"></div>
+                <div class="finger f1"></div><div class="finger f2"></div><div class="finger f3"></div><div class="finger f4"></div><div class="finger f5"></div>
             </div>
         </div>
 
@@ -1545,13 +1944,15 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 <div class="note-logo"><span class="note-logo-mark">İ</span> PERSONEL İZİN BİLDİRİMİ</div>
                 <div class="note-title" id="noteTitle">Sn. Burhan Biliktü</div>
                 <div class="note-caption" data-i18n="noteCaption">Kalan İzin Hakkınız</div>
-                <div class="note-balance"><span id="noteBalance">29,5</span> <small data-i18n="dayLower">Gün</small></div>
-                <div class="note-signature" data-i18n="hrUnit">Personel ve Çalışma İlişkileri</div>
+                <div class="note-balance"><span id="noteBalance">29,5</span> <small data-i18n="dayLower">gün</small></div>
+                <div class="note-signature">
+                    <span class="signature-script">İlker Sezgin</span>
+                    <span class="signature-role" data-i18n="hrChief">Personel ve Çalışma İlişkileri Şefi</span>
+                </div>
             </div>
         </div>
 
-        <div class="elevator-status" id="elevatorStatus">YUKARI ÇIKIYOR · YAVAŞ SEYİR</div>
-        <button class="skip-animation" id="skipAnimationBtn" type="button" data-i18n="skip">Animasyonu Geç</button>
+        <div class="elevator-status" id="elevatorStatus">ASANSÖR ÇAĞRILIYOR</div>
     </section>
 
     <!-- Şifre unutma -->
@@ -1622,15 +2023,15 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 login: "Giriş Yap", forgot: "Şifremi Unuttum",
                 replay: "Asansörü Tekrar İzle", logout: "Çıkış",
                 remainingLeave: "Kalan İzin Hakkınız", day: "GÜN", dayLower: "gün",
-                updated: "Son güncelleme:", leaveLevel: "İzin seviyesi",
+                updated: "Son güncelleme:", leaveLevel: "Kat",
                 sundayLeave: "Pazar İzinleri", officialHoliday: "Resmî Tatil",
                 quickActions: "Hızlı İşlemler", objectLeave: "İzin Gününe İtiraz Et",
                 requestLeave: "İzin Talebi Oluştur", addHome: "Ana Ekrana Uygulama Olarak Ekle",
                 nextHoliday: "Yaklaşan Resmî Tatil", security: "Güvenlik Bilgisi",
                 lastLogin: "Son girişiniz", session: "Oturum", active: "Aktif",
-                digitalId: "Dijital Personel Kimliği", leaveLevelUpper: "İZİN SEVİYESİ",
-                halfDay: "ARA SEVİYE · ½ GÜN", noteCaption: "Kalan İzin Hakkınız",
-                hrUnit: "Personel ve Çalışma İlişkileri", skip: "Animasyonu Geç",
+                digitalId: "Dijital Personel Kimliği", leaveLevelUpper: "KAT",
+                halfDay: "ARA KAT · ½ GÜN", noteCaption: "Kalan İzin Hakkınız",
+                hrChief: "Personel ve Çalışma İlişkileri Şefi",
                 forgotTitle: "Şifre Talebi", nameOrUsername: "Ad Soyad veya Kullanıcı Adı",
                 identityPlaceholder: "Bilginizi yazın", sendWhatsapp: "WhatsApp’tan Gönder",
                 leaveRequestTitle: "İzin Talebi Oluştur", leaveType: "İzin Türü",
@@ -1639,9 +2040,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 endDate: "Bitiş Tarihi", description: "Açıklama",
                 descriptionPlaceholder: "Talebinizle ilgili kısa açıklama",
                 firstLogin: "İlk giriş", greetingMorning: "Günaydın", greetingDay: "Hoş geldiniz",
-                greetingEvening: "İyi akşamlar", elevatorRising: "YUKARI ÇIKIYOR · YAVAŞ SEYİR",
-                elevatorArrived: "29,5 SEVİYESİNE ULAŞILDI", doorsOpening: "KAPILAR AÇILIYOR",
-                secretaryComing: "PERSONEL BİLDİRİMİ HAZIRLANIYOR",
+                greetingEvening: "İyi akşamlar", elevatorCalling: "ASANSÖR ÇAĞRILIYOR", elevatorEntering: "ASANSÖRE BİNİLİYOR", departmentSelecting: "PERSONEL VE ÇALIŞMA İLİŞKİLERİ SEÇİLİYOR", elevatorRising: "YUKARI ÇIKIYOR · YAVAŞ SEYİR",
+                elevatorArrived: "KATA ULAŞILDI", doorsOpening: "KAPILAR AÇILIYOR",
+                officeEntering: "PERSONEL VE ÇALIŞMA İLİŞKİLERİ KATINA ÇIKILIYOR", secretaryComing: "SEKRETER YAKLAŞIYOR",
                 noteDelivery: "BİLDİRİM TESLİM EDİLİYOR",
                 fillFields: "Lütfen kullanıcı adı ve şifreyi girin.",
                 loginError: "Kullanıcı adı veya şifre hatalı.",
@@ -1671,15 +2072,15 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 login: "Sign In", forgot: "Forgot Password",
                 replay: "Replay Elevator", logout: "Sign Out",
                 remainingLeave: "Remaining Leave Balance", day: "DAYS", dayLower: "days",
-                updated: "Last update:", leaveLevel: "Leave level",
+                updated: "Last update:", leaveLevel: "Floor",
                 sundayLeave: "Sunday Leave", officialHoliday: "Public Holiday",
                 quickActions: "Quick Actions", objectLeave: "Object to Leave Balance",
                 requestLeave: "Create Leave Request", addHome: "Add App to Home Screen",
                 nextHoliday: "Next Public Holiday", security: "Security Information",
                 lastLogin: "Your last sign-in", session: "Session", active: "Active",
-                digitalId: "Digital Employee ID", leaveLevelUpper: "LEAVE LEVEL",
-                halfDay: "HALF LEVEL · ½ DAY", noteCaption: "Your Remaining Leave Balance",
-                hrUnit: "Personnel and Labour Relations", skip: "Skip Animation",
+                digitalId: "Digital Employee ID", leaveLevelUpper: "FLOOR",
+                halfDay: "HALF FLOOR · ½ DAY", noteCaption: "Your Remaining Leave Balance",
+                hrChief: "Chief of Personnel and Labour Relations",
                 forgotTitle: "Password Request", nameOrUsername: "Full Name or Username",
                 identityPlaceholder: "Enter your information", sendWhatsapp: "Send via WhatsApp",
                 leaveRequestTitle: "Create Leave Request", leaveType: "Leave Type",
@@ -1688,9 +2089,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 endDate: "End Date", description: "Description",
                 descriptionPlaceholder: "Briefly explain your request",
                 firstLogin: "First sign-in", greetingMorning: "Good morning", greetingDay: "Welcome",
-                greetingEvening: "Good evening", elevatorRising: "GOING UP · SLOW RIDE",
-                elevatorArrived: "LEAVE LEVEL REACHED", doorsOpening: "DOORS OPENING",
-                secretaryComing: "PREPARING PERSONNEL NOTICE",
+                greetingEvening: "Good evening", elevatorCalling: "CALLING ELEVATOR", elevatorEntering: "ENTERING ELEVATOR", departmentSelecting: "SELECTING PERSONNEL AND LABOUR RELATIONS", elevatorRising: "GOING UP · SLOW RIDE",
+                elevatorArrived: "FLOOR REACHED", doorsOpening: "DOORS OPENING",
+                officeEntering: "ENTERING PERSONNEL AND LABOUR RELATIONS FLOOR", secretaryComing: "SECRETARY IS APPROACHING",
                 noteDelivery: "DELIVERING NOTICE",
                 fillFields: "Please enter your username and password.",
                 loginError: "Incorrect username or password.",
@@ -1885,11 +2286,17 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
         function resetElevatorScene() {
             const scene = document.getElementById("elevatorScene");
-            scene.className = "elevator-scene";
-            document.getElementById("secretary").className = "secretary";
+            scene.className = "elevator-scene look-front";
+            document.getElementById("secretary").className = "secretary-real";
             document.getElementById("noteOverlay").className = "note-overlay";
             document.getElementById("halfLevel").className = "half-level";
             document.getElementById("floorValue").textContent = "0";
+            document.getElementById("lobbyDisplay").textContent = "G";
+        }
+
+        function setCameraView(scene, viewClass) {
+            scene.classList.remove("look-left", "look-right", "look-up", "look-panel", "look-front");
+            scene.classList.add(viewClass);
         }
 
         async function playElevatorAnimation(user) {
@@ -1916,40 +2323,80 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                             Math.abs(target - Math.round(target)) > .001;
             if (hasHalf) halfLevel.classList.add("show");
 
-            status.textContent = t("elevatorRising");
-            scene.classList.add("riding");
+            // 1) Burhan'ın gözünden asansörü çağırma ve kapının açılması
+            status.textContent = t("elevatorCalling");
+            if (!(await delay(900, runId))) return;
+            scene.classList.add("calling");
+            if (!(await delay(900, runId))) return;
+            scene.classList.add("lobby-open");
+            status.textContent = t("doorsOpening");
+            if (!(await delay(2300, runId))) return;
 
-            // Kullanıcının istediği gibi hızlı bitmez: ana yükseliş yaklaşık 14 saniye sürer.
-            const completed = await animateFloor(target, 14000, runId);
+            // 2) Asansöre yavaşça giriş
+            scene.classList.add("entering");
+            status.textContent = t("elevatorEntering");
+            if (!(await delay(2800, runId))) return;
+            scene.classList.add("inside");
+            scene.classList.remove("lobby-open", "calling", "entering");
+            if (!(await delay(1900, runId))) return;
+
+            // 3) Departman paneline bakış ve Personel butonuna basış
+            setCameraView(scene, "look-panel");
+            status.textContent = t("departmentSelecting");
+            if (!(await delay(1200, runId))) return;
+            scene.classList.add("selecting");
+            if (!(await delay(2200, runId))) return;
+            scene.classList.remove("selecting");
+            setCameraView(scene, "look-front");
+            if (!(await delay(800, runId))) return;
+
+            // 4) Yavaş yolculuk. Kamera kabinin farklı yerlerine ve diğer çalışanlara bakar.
+            scene.classList.add("riding");
+            status.textContent = t("elevatorRising");
+            const floorPromise = animateFloor(target, 18000, runId);
+
+            if (!(await delay(2400, runId))) return;
+            setCameraView(scene, "look-left");
+            if (!(await delay(2600, runId))) return;
+            setCameraView(scene, "look-front");
+            if (!(await delay(2200, runId))) return;
+            setCameraView(scene, "look-right");
+            if (!(await delay(2800, runId))) return;
+            setCameraView(scene, "look-up");
+            if (!(await delay(2300, runId))) return;
+            setCameraView(scene, "look-panel");
+            if (!(await delay(2300, runId))) return;
+            setCameraView(scene, "look-front");
+
+            const completed = await floorPromise;
             if (!completed || runId !== animationRunId) return;
 
             scene.classList.remove("riding");
-            scene.classList.add("arrived");
             status.textContent = currentLanguage === "tr"
-                ? `${formatNumber(target)} SEVİYESİNE ULAŞILDI`
-                : `LEVEL ${formatNumber(target)} REACHED`;
+                ? `${formatNumber(target)} KATINA ULAŞILDI`
+                : `FLOOR ${formatNumber(target)} REACHED`;
+            if (!(await delay(1200, runId))) return;
 
-            if (!(await delay(900, runId))) return;
-            scene.classList.add("doors-open");
+            // 5) Kapıların ofise açılması ve Burhan'ın asansörden çıkması
+            scene.classList.add("office-open");
             status.textContent = t("doorsOpening");
-
-            if (!(await delay(2500, runId))) return;
-            scene.classList.add("walking");
-            status.textContent = t("secretaryComing");
-
-            if (!(await delay(1600, runId))) return;
-            secretary.classList.add("approach");
-
+            if (!(await delay(2700, runId))) return;
+            scene.classList.add("exiting");
+            status.textContent = t("officeEntering");
             if (!(await delay(3300, runId))) return;
+
+            // 6) Sekreter yaklaşır, imzalı belgeyi teslim eder
+            status.textContent = t("secretaryComing");
+            secretary.classList.add("approach");
+            if (!(await delay(3400, runId))) return;
             secretary.classList.add("offer");
             scene.classList.add("receiving");
             status.textContent = t("noteDelivery");
-
-            if (!(await delay(1700, runId))) return;
+            if (!(await delay(1800, runId))) return;
             noteOverlay.classList.add("show");
 
-            // Notun okunabilmesi için ekranda yeterince uzun kalır.
-            if (!(await delay(5200, runId))) return;
+            // Animasyon zorunludur; atlama butonu yoktur. Belge okunabilsin diye uzun kalır.
+            if (!(await delay(6200, runId))) return;
             finishAnimation(runId);
         }
 
@@ -2130,7 +2577,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         document.getElementById("leaveRequestBtn").addEventListener("click", () => openModal("leaveModal"));
         document.getElementById("installBtn").addEventListener("click", installPwa);
         document.getElementById("installActionBtn").addEventListener("click", installPwa);
-        document.getElementById("skipAnimationBtn").addEventListener("click", () => finishAnimation());
         document.getElementById("replayBtn").addEventListener("click", () => playElevatorAnimation(currentUser));
         document.getElementById("logoutBtn").addEventListener("click", () => {
             animationRunId++;
@@ -2201,7 +2647,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 </html>'''
 
 
-SERVICE_WORKER = r'''const CACHE_NAME = "izin-portali-v3";
+SERVICE_WORKER = r'''const CACHE_NAME = "izin-portali-v7";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", event => {
