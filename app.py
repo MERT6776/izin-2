@@ -607,7 +607,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         /* ---- OFİS ---- */
         .stage.office{background:linear-gradient(180deg,#eaf4f8 0 18%,#cfe1e9 18% 74%,#9db2bd 74% 100%); transform:scale(.9);}
         .sim.exiting .stage.office,.sim.in-office .stage.office{transform:scale(1);}
-        .sim.reading .stage.office{transform:scale(1.06);}
+        .sim.reading .stage.office{transform:none; will-change:auto;}
+        .sim.reading .crew{will-change:auto;}
+        .sim.reading .crew.semih{animation-play-state:paused;}
         .office-ceil{position:absolute; left:-8%; right:-8%; top:-12%; height:32%; background:linear-gradient(#f4fafc,#d3dfe4); transform:perspective(680px) rotateX(-52deg);}
         .office-floor{position:absolute; left:-14%; right:-14%; bottom:-20%; height:52%; background:repeating-linear-gradient(90deg, rgba(27,75,94,.12) 0 1px, transparent 1px 8%),linear-gradient(#9cb9c5,#e2edf1); transform:perspective(560px) rotateX(63deg); transform-origin:top;}
         .office-wall{position:absolute; top:20%; bottom:16%; width:22%; border:2px solid rgba(51,108,133,.3); background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(111,187,218,.1));}
@@ -654,12 +656,13 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
 
         /* BELGE — klasörden çıkar, açılır (54), önümüze gelir; QR(8), mühür(26/45) */
-        .doc{position:fixed; z-index:125; left:50%; bottom:50%; width:min(420px,90vw); max-height:88vh; overflow:auto; padding:22px 22px 18px; border-radius:12px; background:linear-gradient(180deg,#fffdf6,#f4ecd7); color:#173044; border:1px solid #d8c692; box-shadow:0 26px 64px rgba(0,0,0,.5); transform:translate(-50%,54%) scale(.96); transform-origin:center; opacity:0; pointer-events:none; transition:transform .85s cubic-bezier(.2,.83,.2,1), opacity .7s ease; will-change:transform,opacity;}
-        .doc::before{content:""; position:absolute; inset:8px; border:1.5px solid rgba(31,87,112,.14); border-radius:8px; pointer-events:none;}
-        .sim.reading .doc{opacity:1; transform:translate(-50%,50%) scale(1);}
-        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(4,12,20,.74); opacity:0; pointer-events:none; transition:opacity 1.1s ease;}
+        .doc{position:fixed; z-index:125; inset:0; display:grid; place-items:center; padding:18px; opacity:0; pointer-events:none; transition:opacity .5s ease;}
+        .sim.reading .doc{opacity:1;}
+        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(5,13,22,.94); opacity:0; pointer-events:none; transition:opacity .6s ease;}
         .sim.reading .read-dim{opacity:1;}
-        .doc-inner{position:relative; z-index:2; display:flex; flex-direction:column; gap:9px;}
+        .doc-inner{position:relative; width:min(420px,92vw); max-height:86vh; overflow:auto; display:flex; flex-direction:column; gap:9px; padding:22px 22px 18px; border-radius:14px; background:linear-gradient(180deg,#fffdf6,#f4ecd7); color:#173044; border:1px solid #d8c692; box-shadow:0 26px 64px rgba(0,0,0,.55); transform:translateY(24px) scale(.97); transition:transform .7s cubic-bezier(.2,.83,.2,1);}
+        .doc-inner::before{content:""; position:absolute; inset:8px; border:1.5px solid rgba(31,87,112,.14); border-radius:9px; pointer-events:none;}
+        .sim.reading .doc-inner{transform:none;}
         .doc-band{display:flex; align-items:center; gap:10px; padding-bottom:11px; border-bottom:2px solid rgba(31,87,112,.16); color:#245874; font-weight:900; letter-spacing:.03em; font-size:.8rem;}
         .doc-logo-mark{width:34px; height:34px; flex:0 0 34px; display:grid; place-items:center; border-radius:8px; color:#fff; background:linear-gradient(145deg,#168bc7,#0b456b); font-weight:1000; font-size:1.1rem;}
         .doc-ref{color:#6b7f8c; font-size:.72rem; font-weight:800; letter-spacing:.02em;}
@@ -822,7 +825,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .big-balance{font-size:clamp(2.6rem,20vw,3.4rem);}
             .dept-panel{width:min(58vw,200px);}
             .floor-ind{min-width:120px; padding:6px 10px;}
-            .doc{width:min(92vw,360px); padding:18px;}
+            .doc-inner{width:min(92vw,360px); padding:18px;}
         }
         @media (prefers-reduced-motion:reduce){
             *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.24s !important;}
