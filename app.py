@@ -530,10 +530,13 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .door::after{content:""; position:absolute; top:0; bottom:0; right:0; width:3px; background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.05));}
 
         /* ---- LOBİ ---- */
-        .stage.lobby .lobby-wall{position:absolute; inset:0; background:linear-gradient(180deg,#e7eef2 0 16%,#cfd9df 16% 74%,#7c8892 74% 100%);}
-        .stage.lobby .lobby-wall::after{content:""; position:absolute; left:-10%; right:-10%; bottom:-18%; height:46%; background:repeating-linear-gradient(90deg, rgba(24,49,63,.16) 0 1px, transparent 1px 12%),linear-gradient(#8a97a0,#d3dde1); transform:perspective(620px) rotateX(62deg); transform-origin:top;}
+        .stage.lobby .lobby-wall{position:absolute; inset:0; background:repeating-linear-gradient(90deg, rgba(90,110,125,.12) 0 1px, transparent 1px 9%),linear-gradient(180deg,#e9eff3 0 15%,#d3dde3 15% 62%,#aab7c0 62% 74%,#7c8892 74% 100%);}
+        .stage.lobby .lobby-wall::after{content:""; position:absolute; left:-10%; right:-10%; bottom:-18%; height:46%; background:repeating-linear-gradient(90deg, rgba(24,49,63,.16) 0 1px, transparent 1px 12%),repeating-linear-gradient(0deg, rgba(24,49,63,.10) 0 1px, transparent 1px 40%),linear-gradient(#8a97a0,#d3dde1); transform:perspective(620px) rotateX(62deg); transform-origin:top;}
+        .lobby-strip{position:absolute; z-index:2; left:24%; right:24%; top:4%; height:9px; border-radius:6px; background:linear-gradient(#ffffff,#dcf1ff); box-shadow:0 0 22px rgba(150,215,255,.7);}
         .lobby-frame{position:absolute; left:50%; top:9%; bottom:9%; width:min(72vw,560px); transform:translateX(-50%); border:clamp(10px,1.6vw,20px) solid #56646f; border-bottom-width:26px; background:#0a1016; box-shadow:0 22px 55px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.12);}
         .lobby-head{position:absolute; left:50%; top:-46px; transform:translateX(-50%); min-width:110px; padding:8px 16px; border-radius:8px; text-align:center; color:#6fe6ff; background:#03080d; border:1px solid #486370; font:900 1.15rem/1 ui-monospace,monospace; letter-spacing:.18em; text-shadow:0 0 12px rgba(91,226,255,.7);}
+        .call-panel{position:absolute; z-index:4; right:-11%; top:42%; width:clamp(26px,5vw,40px); padding:8px 0; display:grid; place-items:center; border-radius:9px; background:linear-gradient(#20323d,#0d1a22); border:1px solid rgba(150,200,220,.3); box-shadow:0 8px 16px rgba(0,0,0,.3);}
+        .call-up{color:#6fe6ff; font-size:.9rem; text-shadow:0 0 10px #6fe6ff; animation:arrowPulse 1s ease-in-out infinite;}
         .lobby-doorway{inset:0;}
         .sim.lobby-open .stage.lobby .door.l{transform:translateX(-102%);}
         .sim.lobby-open .stage.lobby .door.r{transform:scaleX(-1) translateX(-102%);}
@@ -605,13 +608,32 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         @keyframes haloGo{to{transform:translate(-50%,-50%) scale(9); opacity:0;}}
 
         /* ---- OFİS ---- */
-        .stage.office{background:linear-gradient(180deg,#eaf4f8 0 18%,#cfe1e9 18% 74%,#9db2bd 74% 100%); transform:scale(.9);}
+        .stage.office{background:linear-gradient(180deg,#cfe0ea 0 58%,#b3c6d1 58% 72%,#9fb2be 72% 100%); transform:scale(.9);}
         .sim.exiting .stage.office,.sim.in-office .stage.office{transform:scale(1);}
         .sim.reading .stage.office{transform:scale(1.06);}
-        .office-ceil{position:absolute; left:-8%; right:-8%; top:-12%; height:32%; background:linear-gradient(#f4fafc,#d3dfe4); transform:perspective(680px) rotateX(-52deg);}
-        .office-floor{position:absolute; left:-14%; right:-14%; bottom:-20%; height:52%; background:repeating-linear-gradient(90deg, rgba(27,75,94,.12) 0 1px, transparent 1px 8%),linear-gradient(#9cb9c5,#e2edf1); transform:perspective(560px) rotateX(63deg); transform-origin:top;}
-        .office-wall{position:absolute; top:20%; bottom:16%; width:22%; border:2px solid rgba(51,108,133,.3); background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(111,187,218,.1));}
-        .office-wall.left{left:2%;} .office-wall.right{right:2%;}
+        .office-ceil{position:absolute; left:-8%; right:-8%; top:-12%; height:26%; background:linear-gradient(#eef4f8,#cfd9e0); transform:perspective(680px) rotateX(-52deg); box-shadow:0 10px 30px rgba(0,0,0,.08);}
+        /* tavan ışık panelleri */
+        .ceil-panel{position:absolute; z-index:2; top:5%; height:9px; width:15%; border-radius:6px; background:linear-gradient(#ffffff,#dcf1ff); box-shadow:0 0 18px rgba(150,215,255,.7);}
+        .ceil-panel.p1{left:22%;} .ceil-panel.p2{left:42.5%;} .ceil-panel.p3{left:63%;}
+        /* arka cam duvar (ofis hissi) */
+        .office-glass{position:absolute; z-index:1; left:7%; right:7%; top:17%; height:50%; display:flex; gap:0; border:clamp(6px,1.2vw,13px) solid #56707f; border-radius:5px; background:linear-gradient(180deg,#a9d6ee,#dff2fd 62%,#eef9ff); box-shadow:inset 0 0 46px rgba(255,255,255,.5), 0 16px 34px rgba(0,0,0,.14); overflow:hidden;}
+        .office-glass span{flex:1; border-right:2px solid rgba(86,112,127,.55); background:linear-gradient(120deg, rgba(255,255,255,.4) 0 22%, transparent 45%);}
+        .office-glass span:last-child{border-right:0;}
+        .office-glass::after{content:""; position:absolute; left:0; right:0; bottom:0; height:26%; background:linear-gradient(180deg,transparent,rgba(120,160,185,.35)); }
+        .office-floor{position:absolute; left:-16%; right:-16%; bottom:-22%; height:56%; background:repeating-linear-gradient(90deg, rgba(40,80,100,.14) 0 1px, transparent 1px 7%),repeating-linear-gradient(0deg, rgba(40,80,100,.10) 0 1px, transparent 1px 26%),linear-gradient(#9fb6c2,#d6e3ea); transform:perspective(560px) rotateX(63deg); transform-origin:top;}
+        .office-wall{position:absolute; z-index:1; top:16%; bottom:14%; width:9%; background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(120,165,190,.18)); border:1px solid rgba(70,120,145,.28);}
+        .office-wall.left{left:1%;} .office-wall.right{right:1%;}
+        /* resepsiyon bankosu (ekibin arkasında) */
+        .reception{position:absolute; z-index:3; left:50%; bottom:26%; transform:translateX(-50%); width:min(52%,420px); height:8%; border-radius:10px 10px 4px 4px; background:linear-gradient(#7c93a1,#3f5563); border-top:4px solid #9bb1bd; box-shadow:0 14px 26px rgba(0,0,0,.22), inset 0 3px 0 rgba(255,255,255,.18);}
+        .reception::after{content:""; position:absolute; left:8%; right:8%; top:120%; height:180%; background:linear-gradient(#33454f,#223038); border-radius:0 0 6px 6px;}
+        /* saksı bitkiler (ofis + lobi ortak) */
+        .plant{position:absolute; z-index:6; bottom:13%; width:clamp(38px,9vw,66px); height:clamp(84px,19vh,140px);}
+        .plant.pl-l{left:4%;} .plant.pl-r{right:4%;}
+        .plant::before{content:""; position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:52%; height:26%; border-radius:6px 6px 12px 12px; background:linear-gradient(#c58a5a,#7f5231); box-shadow:0 8px 14px rgba(0,0,0,.2);}
+        .plant i{position:absolute; bottom:20%; width:44%; height:58%; border-radius:52% 52% 48% 48% / 66% 66% 34% 34%; background:linear-gradient(#4a9d63,#2c6b41);}
+        .plant i:nth-child(1){left:2%; transform:rotate(-22deg); transform-origin:bottom;}
+        .plant i:nth-child(2){left:50%; transform:translateX(-50%);}
+        .plant i:nth-child(3){right:2%; transform:rotate(22deg); transform-origin:bottom;}
         /* 15) 67. kata özel ışıklı tabela */
         .office-sign{position:absolute; z-index:5; left:50%; top:9.5%; transform:translateX(-50%); white-space:nowrap; text-align:center; padding:9px 20px; border-radius:12px; color:#eaf7ff; background:linear-gradient(#1c4a66,#0f3550); border:1px solid rgba(160,220,245,.55); box-shadow:0 10px 26px rgba(9,40,58,.35), inset 0 1px 0 rgba(255,255,255,.22); font-weight:1000; letter-spacing:.1em;}
         .office-sign .os-main{font-size:clamp(.85rem,3vw,1.45rem);}
@@ -957,12 +979,17 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             <!-- OFİS (sade: aydınlık koridor + kat tabelası) -->
             <div class="stage office">
                 <div class="office-ceil"></div>
+                <div class="ceil-panel p1"></div><div class="ceil-panel p2"></div><div class="ceil-panel p3"></div>
+                <div class="office-glass"><span></span><span></span><span></span><span></span><span></span></div>
                 <div class="office-floor"></div>
                 <div class="office-wall left"></div>
                 <div class="office-wall right"></div>
+                <div class="reception"></div>
+                <div class="plant pl-l"><i></i><i></i><i></i></div>
+                <div class="plant pl-r"><i></i><i></i><i></i></div>
                 <div class="office-sign"><span class="os-main">PERSONEL VE ÇALIŞMA İLİŞKİLERİ</span><span class="os-floor" data-i18n="floor67">67. KAT</span></div>
 
-                <!-- 5 kişilik departman ekibi; Semih Bayat biraz uzun boylu, öne çıkar -->
+                <!-- 5 kişilik departman ekibi; Semih Bayat normal boy, öne çıkar -->
                 <div class="crew-row">
                     <div class="crew" style="--suit:#2f5a7d; --hair:#241a14"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
                     <div class="crew" style="--suit:#3a4a58; --hair:#1c1410"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
@@ -1004,8 +1031,12 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             <!-- LOBİ -->
             <div class="stage lobby">
                 <div class="lobby-wall"></div>
+                <div class="lobby-strip"></div>
+                <div class="plant pl-l"><i></i><i></i><i></i></div>
+                <div class="plant pl-r"><i></i><i></i><i></i></div>
                 <div class="lobby-frame">
                     <div class="lobby-head" id="lobbyDisplay">G</div>
+                    <div class="call-panel"><span class="call-up">▲</span></div>
                     <div class="doorway lobby-doorway">
                         <div class="door l"></div>
                         <div class="door r"></div>
@@ -1477,7 +1508,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             // Onaylı belge yumuşakça merkeze gelir
             simClass(["reading"]); setStatus("stDelivery");
             buzz(30);
-            if(!(await delay(3200, runId))) return;
+            if(!(await delay(6700, runId))) return;
 
             finishAnimation(runId);
         }
