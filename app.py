@@ -607,7 +607,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         /* ---- OFİS ---- */
         .stage.office{background:linear-gradient(180deg,#eaf4f8 0 18%,#cfe1e9 18% 74%,#9db2bd 74% 100%); transform:scale(.9);}
         .sim.exiting .stage.office,.sim.in-office .stage.office{transform:scale(1);}
-        .sim.reading .stage.office{transform:none; will-change:auto;}
+        .sim.reading .stage.office{transform:scale(1); will-change:auto;}
         .sim.reading .crew{will-change:auto;}
         .sim.reading .crew.semih{animation-play-state:paused;}
         .office-ceil{position:absolute; left:-8%; right:-8%; top:-12%; height:32%; background:linear-gradient(#f4fafc,#d3dfe4); transform:perspective(680px) rotateX(-52deg);}
@@ -658,11 +658,11 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         /* BELGE — klasörden çıkar, açılır (54), önümüze gelir; QR(8), mühür(26/45) */
         .doc{position:fixed; z-index:125; inset:0; display:grid; place-items:center; padding:18px; opacity:0; pointer-events:none; transition:opacity .5s ease;}
         .sim.reading .doc{opacity:1;}
-        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(5,13,22,.94); opacity:0; pointer-events:none; transition:opacity .6s ease;}
+        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(5,13,22,.96); opacity:0; pointer-events:none; transition:opacity .5s ease;}
         .sim.reading .read-dim{opacity:1;}
-        .doc-inner{position:relative; width:min(420px,92vw); max-height:86vh; overflow:auto; display:flex; flex-direction:column; gap:9px; padding:22px 22px 18px; border-radius:14px; background:linear-gradient(180deg,#fffdf6,#f4ecd7); color:#173044; border:1px solid #d8c692; box-shadow:0 26px 64px rgba(0,0,0,.55); transform:translateY(24px) scale(.97); transition:transform .7s cubic-bezier(.2,.83,.2,1);}
+        .doc-inner{position:relative; width:min(420px,92vw); max-height:86vh; overflow:auto; display:flex; flex-direction:column; gap:9px; padding:22px 22px 18px; border-radius:14px; background:linear-gradient(180deg,#fffdf6,#f4ecd7); color:#173044; border:1px solid #d8c692; box-shadow:0 26px 64px rgba(0,0,0,.55); transform:translateY(18px); transition:transform .6s cubic-bezier(.2,.83,.2,1); backface-visibility:hidden;}
         .doc-inner::before{content:""; position:absolute; inset:8px; border:1.5px solid rgba(31,87,112,.14); border-radius:9px; pointer-events:none;}
-        .sim.reading .doc-inner{transform:none;}
+        .sim.reading .doc-inner{transform:translateY(0);}
         .doc-band{display:flex; align-items:center; gap:10px; padding-bottom:11px; border-bottom:2px solid rgba(31,87,112,.16); color:#245874; font-weight:900; letter-spacing:.03em; font-size:.8rem;}
         .doc-logo-mark{width:34px; height:34px; flex:0 0 34px; display:grid; place-items:center; border-radius:8px; color:#fff; background:linear-gradient(145deg,#168bc7,#0b456b); font-weight:1000; font-size:1.1rem;}
         .doc-ref{color:#6b7f8c; font-size:.72rem; font-weight:800; letter-spacing:.02em;}
