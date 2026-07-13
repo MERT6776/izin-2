@@ -539,7 +539,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         /* 52) tavan gömme spotları + ışık havuzu */
         .spot{position:absolute; top:6%; width:clamp(26px,6vw,54px); height:8px; border-radius:50%; background:#eafcff; box-shadow:0 0 22px #bdf1ff,0 0 60px rgba(120,225,255,.4);}
         .spot.s1{left:26%;} .spot.s2{left:50%; transform:translateX(-50%);} .spot.s3{right:26%;}
-        .spot::after{content:""; position:absolute; left:50%; top:100%; width:340%; height:60vh; transform:translateX(-50%); background:radial-gradient(ellipse at top, rgba(190,240,255,.14), transparent 62%); pointer-events:none;}
+        .spot::after{content:""; position:absolute; left:50%; top:100%; width:220%; height:26vh; transform:translateX(-50%); background:radial-gradient(ellipse at top, rgba(190,240,255,.12), transparent 60%); pointer-events:none;}
         .cabin-light-wrap{position:absolute; inset:0; transition:opacity .25s; }
         /* 12) kalkışta ışık titremesi (bir kez) */
         .sim.flicker .stage.cabin{animation:cabinFlicker .7s ease 1;}
@@ -551,11 +551,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
         /* C) MAX 8 KİŞİ · 630 KG tabelası + 89) acil buton/interkom + 111) havalandırma */
         .cabin-plate{position:absolute; z-index:16; left:3%; top:20%; width:min(20vw,120px); padding:7px 9px; border-radius:7px; background:linear-gradient(#20323d,#0d1a22); border:1px solid rgba(160,210,230,.3); color:#bcd4de; font-size:clamp(.5rem,1.7vw,.66rem); font-weight:900; letter-spacing:.06em; line-height:1.35; text-align:center; box-shadow:inset 0 0 8px rgba(0,0,0,.4);}
-        .cabin-vent{position:absolute; z-index:14; left:4%; top:9%; width:min(16vw,90px); height:14px; border-radius:4px; background:repeating-linear-gradient(90deg,#243743 0 3px,#0f1c24 3px 6px); border:1px solid rgba(150,200,220,.2);}
-        .emg{position:absolute; z-index:16; left:3.4%; top:34%; width:min(18vw,104px); padding:8px; border-radius:8px; background:linear-gradient(#1a2a34,#0c1820); border:1px solid rgba(150,200,220,.24); display:flex; gap:8px; align-items:center; justify-content:center;}
-        .emg-btn{width:18px; height:18px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#ff8a8a,#c22b2b); box-shadow:0 0 10px rgba(226,60,60,.55), inset 0 -2px 3px rgba(0,0,0,.4);}
-        .emg-ico{width:16px; height:16px; border-radius:4px; background:#20323d; border:1px solid #4a626e; position:relative;}
-        .emg-ico::after{content:"☎"; position:absolute; inset:0; display:grid; place-items:center; font-size:.6rem; color:#9fc0cd;}
 
         /* Kat göstergesi (kapı üstünde) — 39 LED font, 11 ok, 30 flash, ding */
         .floor-ind{position:absolute; z-index:20; left:50%; top:max(3.5%,env(safe-area-inset-top)); transform:translateX(-50%); min-width:clamp(140px,40vw,190px); padding:8px 16px 7px; text-align:center; border-radius:11px; color:#ffb14a; background:#0a0602; border:1px solid #5a4326; box-shadow:inset 0 0 16px rgba(255,150,40,.14),0 0 22px rgba(255,150,40,.12);}
@@ -570,11 +565,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .floor-ind.ding{animation:dingPulse 1s ease;}
         @keyframes dingPulse{0%{box-shadow:inset 0 0 16px rgba(255,150,40,.14),0 0 22px rgba(255,150,40,.12);}30%{box-shadow:inset 0 0 22px rgba(255,190,90,.4),0 0 52px rgba(255,180,70,.85); transform:translateX(-50%) scale(1.05);}100%{transform:translateX(-50%) scale(1);}}
 
-        /* 4) kabin duvarında 1-67 kat şeridi */
-        .floor-strip{position:absolute; z-index:16; right:3%; top:16%; width:min(9vw,54px); height:60%; border-radius:8px; padding:6px 0; background:linear-gradient(#16262f,#0a141b); border:1px solid rgba(150,200,220,.22); overflow:hidden; box-shadow:inset 0 0 12px rgba(0,0,0,.5);}
-        .floor-strip .fs-track{position:absolute; left:0; right:0; bottom:8px; display:flex; flex-direction:column-reverse; align-items:center; gap:2px; transition:transform .3s linear;}
-        .fs-cell{font:800 .5rem/1 ui-monospace,monospace; color:#3f5460; padding:1px 0;}
-        .fs-cell.on{color:#7fe8ff; text-shadow:0 0 8px rgba(90,220,255,.8);}
 
         /* Kabin kapısı + cam (61) */
         .cabin-doorway{left:24%; right:24%; top:16%; bottom:2%; border:clamp(7px,1.4vw,16px) solid #3b5361; border-bottom-width:20px; border-radius:2px; box-shadow:inset 0 0 0 2px rgba(255,255,255,.1),0 18px 45px rgba(0,0,0,.5);}
@@ -617,80 +607,20 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .office-floor{position:absolute; left:-14%; right:-14%; bottom:-20%; height:52%; background:repeating-linear-gradient(90deg, rgba(27,75,94,.12) 0 1px, transparent 1px 8%),linear-gradient(#9cb9c5,#e2edf1); transform:perspective(560px) rotateX(63deg); transform-origin:top;}
         .office-wall{position:absolute; top:20%; bottom:16%; width:22%; border:2px solid rgba(51,108,133,.3); background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(111,187,218,.1));}
         .office-wall.left{left:2%;} .office-wall.right{right:2%;}
-        /* 116) god ray */
-        .god-ray{position:absolute; z-index:2; left:60%; top:-10%; width:34%; height:120%; background:linear-gradient(200deg, rgba(255,247,214,.42), rgba(255,247,214,0) 60%); transform:rotate(14deg); filter:blur(4px); mix-blend-mode:screen; opacity:0; transition:opacity 1.4s ease;}
-        .sim.in-office .god-ray,.sim.reading .god-ray{opacity:1;}
         /* 15) 67. kata özel ışıklı tabela */
         .office-sign{position:absolute; z-index:5; left:50%; top:9.5%; transform:translateX(-50%); white-space:nowrap; text-align:center; padding:9px 20px; border-radius:12px; color:#eaf7ff; background:linear-gradient(#1c4a66,#0f3550); border:1px solid rgba(160,220,245,.55); box-shadow:0 10px 26px rgba(9,40,58,.35), inset 0 1px 0 rgba(255,255,255,.22); font-weight:1000; letter-spacing:.1em;}
         .office-sign .os-main{font-size:clamp(.85rem,3vw,1.45rem);}
         .office-sign .os-floor{display:block; margin-top:2px; font-size:clamp(.6rem,2vw,.85rem); color:#7fe6ff; text-shadow:0 0 12px rgba(90,220,255,.7);}
-        .sim.in-office .office-sign,.sim.reading .office-sign{animation:signGlow 2.2s ease-in-out infinite;}
-        @keyframes signGlow{0%,100%{box-shadow:0 10px 26px rgba(9,40,58,.35), inset 0 1px 0 rgba(255,255,255,.22);}50%{box-shadow:0 10px 30px rgba(9,40,58,.4), 0 0 26px rgba(90,220,255,.45), inset 0 1px 0 rgba(255,255,255,.3);}}
-        .desk{position:absolute; bottom:20%; width:22%; height:11%; border-radius:5px 5px 0 0; background:linear-gradient(#b37d50,#6e472d); box-shadow:0 10px 16px rgba(0,0,0,.18);}
-        .desk.d1{left:8%;} .desk.d2{right:8%;}
-        .desk::after{content:""; position:absolute; left:30%; bottom:100%; width:40%; height:88%; border-radius:4px; background:#16232b; border:3px solid #6b7e88;}
-        /* 27) parallax katmanlar */
-        .op-layer{position:absolute; inset:0; transition:transform 2.6s cubic-bezier(.3,.6,.2,1); will-change:transform;}
-        .sim.in-office .op-far{transform:translateY(-1%) scale(1.02);}
-        .sim.in-office .op-mid{transform:translateY(1%) scale(1.05);}
-        .sim.in-office .op-near{transform:translateY(3%) scale(1.09);}
 
-        /* ---- ORANTILI İNSAN BİLEŞENİ (tüm NPC'ler aynı oran) ---- */
-        .person{position:absolute; bottom:0; height:var(--ph,220px); aspect-ratio:.42; transform-origin:bottom center; will-change:transform,opacity;}
-        .person .ph-shadow{position:absolute; left:50%; bottom:-3%; transform:translateX(-50%); width:78%; height:7%; border-radius:50%; background:radial-gradient(closest-side, rgba(0,0,0,.42), transparent 70%);}
-        .person .ph-hair{position:absolute; left:50%; top:-1%; transform:translateX(-50%); width:39%; height:11%; border-radius:50% 50% 22% 22%; background:var(--hair,#241b19); z-index:2;}
-        .person .ph-head{position:absolute; left:50%; top:1%; transform:translateX(-50%); width:33%; aspect-ratio:.86; border-radius:44% 44% 42% 42%; background:linear-gradient(90deg,var(--skinS,#a96d46),var(--skin,#e2aa7e) 52%,var(--skinS,#b97951)); z-index:1;}
-        .person .ph-body{position:absolute; left:16%; right:16%; top:19%; height:47%; border-radius:24% 24% 10% 10%; background:var(--suit,#20415c);}
-        .person .ph-arm{position:absolute; top:21%; width:14%; height:44%; border-radius:36% 36% 40% 40%; background:var(--suit,#20415c); filter:brightness(.9); transform-origin:top center;}
-        .person .ph-arm.l{left:6%;} .person .ph-arm.r{right:6%;}
-        .person .ph-leg{position:absolute; bottom:0; width:19%; height:33%; border-radius:16% 16% 8% 8%; background:var(--pants,#11202c);}
-        .person .ph-leg.l{left:29%;} .person .ph-leg.r{right:29%;}
-        .person .ph-prop{position:absolute; z-index:3; left:22%; top:44%; width:56%; height:20%; border-radius:5px; background:linear-gradient(#6a7a86,#26343d); border:2px solid #8b9ca6; box-shadow:0 6px 12px rgba(0,0,0,.3);}
-        .person.tablet .ph-prop{background:#0c151b; border:3px solid #6f838d;}
-        .person.folder .ph-prop{left:8%; width:40%; height:24%; background:linear-gradient(#7a4e2f,#3e2819); border:2px solid #9a6d48;}
-
-        /* Kabindeki yolcular */
-        .pax{--ph:clamp(210px,40vh,360px);}
-        .pax.p1{left:6%; --suit:#123049; --pants:#0d1922;}
-        .pax.p2{left:18%; height:calc(var(--ph) * .96); --suit:#3a424e; --pants:#232a33; --hair:#3a2a20;}
-        .pax.p3{right:16%; height:calc(var(--ph) * .98); --suit:#3a2b42; --pants:#221833; --hair:#1c1420;}
-        .sim.exiting .pax.p1{transform:translate(-60%,30%) scale(1.25); opacity:0; transition:transform 2.2s ease,opacity 1.6s ease;}
-        .sim.exiting .pax.p2{transform:translate(-40%,42%) scale(1.35); opacity:0; transition:transform 2.2s ease .25s,opacity 1.6s ease .25s;}
-        .sim.exiting .pax.p3{transform:translate(60%,38%) scale(1.3); opacity:0; transition:transform 2.2s ease .5s,opacity 1.6s ease .5s;}
-
-        /* Ofis çalışanları */
-        .worker{--ph:clamp(120px,20vh,190px);}
-        .worker .ph-shadow{opacity:.7;}
-        .worker.wk1{left:16%; bottom:17%; --suit:#274863;}
-        .worker.wk2{right:16%; bottom:17%; --suit:#2e3a30; --hair:#20160f;}
-        .worker.wk3{left:45%; bottom:16%; --ph:clamp(96px,16vh,150px); --suit:#3a2f4a;}
-        .worker.wk1{animation:sway 5s ease-in-out infinite;}
-        .worker.wk2{animation:sway 6s ease-in-out infinite -2s;}
-        .worker.wk3{animation:sway 7s ease-in-out infinite -3s;}
-        @keyframes sway{0%,100%{transform:translateX(0);}50%{transform:translateX(3px);}}
-
-        /* SEKRETER — masadan kalkar (109), yaklaşır+netleşir (75), göz teması (62), gölge (34), döner (132) */
-        .secretary{position:absolute; z-index:8; left:50%; bottom:15%; --ph:clamp(240px,44vh,400px); --suit:#173450; --pants:#101a22; --hair:#2b1c1a; transform:translate(-50%,30%) scale(.3); opacity:0; filter:blur(3px); transition:transform 3s cubic-bezier(.18,.74,.16,1), opacity .9s ease, filter 2s ease;}
-        .secretary .ph-body{background:linear-gradient(90deg,transparent 46%,rgba(255,255,255,.4) 47% 53%,transparent 54%),var(--suit);}
-        .secretary .ph-hair{width:48%; height:17%; border-radius:50% 50% 26% 26%;}
-        .sim.sec-in .secretary{transform:translate(-50%,0) scale(1); opacity:1; filter:blur(0);}
-        .secretary .ph-arm.r{transition:transform 1.3s ease;}
-        .sim.sec-offer .secretary .ph-arm.r{transform:rotate(58deg) translate(-24%,-8%);}
-        /* 132) teslim sonrası masaya döner */
-        .sim.sec-return .secretary{transform:translate(30%,26%) scale(.34); opacity:0; filter:blur(3px); transition:transform 2.6s ease, opacity 1.4s ease .6s, filter 2s ease;}
-        /* sekreterin klasörü (44) */
-        .sec-folder{position:absolute; z-index:9; left:2%; top:42%; width:30%; height:24%; border-radius:4px; background:linear-gradient(#7a4e2f,#3e2819); border:2px solid #9a6d48; transition:opacity .5s;}
-        .sim.sec-offer .sec-folder{opacity:.35;}
 
         /* BELGE — klasörden çıkar, açılır (54), önümüze gelir; QR(8), mühür(26/45) */
-        .doc{position:fixed; z-index:125; left:50%; bottom:8%; width:min(360px,80vw); aspect-ratio:1/1.34; padding:6% 6% 5%; border-radius:5px; background:linear-gradient(180deg,#fffdf5,#f5edd9); color:#173044; border:1px solid #d8c692; box-shadow:0 14px 34px rgba(0,0,0,.4); transform:translateX(-50%) perspective(1200px) translateY(24%) rotateY(70deg) scale(.5); transform-origin:center center; opacity:0; pointer-events:none; transition:transform .95s cubic-bezier(.2,.83,.2,1), opacity .5s ease, bottom .95s cubic-bezier(.2,.83,.2,1), width .95s ease; overflow:hidden; will-change:transform,opacity;}
+        .doc{position:fixed; z-index:125; left:50%; bottom:50%; width:min(560px,90vw); aspect-ratio:1/1.32; padding:6% 6% 5%; border-radius:8px; background:linear-gradient(180deg,#fffdf5,#f5edd9); color:#173044; border:1px solid #d8c692; box-shadow:0 30px 70px rgba(0,0,0,.5); transform:translate(-50%,58%) scale(.94); transform-origin:center center; opacity:0; pointer-events:none; transition:transform .7s cubic-bezier(.2,.83,.2,1), opacity .5s ease; overflow:hidden; will-change:transform,opacity;}
         .doc::before{content:""; position:absolute; inset:5%; border:2px solid rgba(31,87,112,.16); pointer-events:none;}
         /* kağıt dokusu */
         .doc::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(120,90,40,.04) 0 2px, transparent 2px 4px); pointer-events:none;}
-        .sim.sec-offer .doc{opacity:1; transform:translateX(-50%) perspective(1200px) translateY(0) rotateY(26deg) scale(.62);}
         /* 35) okuma: arka plan bulanık+kısık, belge merkeze büyür (18 daha büyük, tam açık) */
-        .sim.reading .doc{opacity:1; bottom:50%; width:min(600px,92vw); transform:translate(-50%,50%) perspective(1200px) rotateY(0) rotate(-1deg) scale(1); box-shadow:0 42px 100px rgba(0,0,0,.55);}
-        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(3,10,16,.6); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px); opacity:0; pointer-events:none; transition:opacity 1s ease;}
+        .sim.reading .doc{opacity:1; transform:translate(-50%,50%) scale(1);}
+        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(4,12,20,.72); opacity:0; pointer-events:none; transition:opacity .8s ease;}
         .sim.reading .read-dim{opacity:1;}
         .doc-inner{position:relative; z-index:2; height:100%; display:flex; flex-direction:column;}
         .doc-band{display:flex; align-items:center; gap:8px; padding-bottom:5%; border-bottom:2px solid rgba(31,87,112,.18); color:#245874; font-weight:1000; letter-spacing:.05em; font-size:clamp(.6rem,2.1vw,.85rem);}
@@ -706,12 +636,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .doc-sign .sg-name{display:block; margin-top:2px; font-family:Inter,"Segoe UI",sans-serif; font-weight:900; font-size:clamp(.85rem,3.1vw,1.15rem); color:#1b3a4c;}
         .sg-line{height:2px; margin:5px 0 5px auto; width:0; background:#315b70; transition:width 1s ease .3s;}
         .sim.reading .sg-line{width:60%;}
-        .doc-stamp{display:inline-block; margin-top:6px; padding:5px 12px; border-radius:6px; border:2.5px solid #1f7a5a; color:#1f7a5a; font-weight:1000; font-size:clamp(.54rem,1.9vw,.72rem); letter-spacing:.14em; transform:rotate(-6deg) scale(2.4); opacity:0;}
-        .sim.reading .doc-stamp{animation:stampSlam .5s cubic-bezier(.2,1.4,.4,1) 1.1s forwards;}
-        @keyframes stampSlam{0%{opacity:0; transform:rotate(-6deg) scale(2.4);}60%{opacity:1; transform:rotate(-6deg) scale(.92);}75%{transform:rotate(-6deg) scale(1.05);}100%{opacity:1; transform:rotate(-6deg) scale(1); box-shadow:0 0 0 rgba(31,122,90,0);}}
-        /* 45) ıslak mürekkep parlaması */
-        .sim.reading .doc-stamp::after{content:""; position:absolute; inset:0; border-radius:6px; background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%); opacity:0; animation:wetShine 1.2s ease 1.6s;}
-        @keyframes wetShine{0%{opacity:0; transform:translateX(-60%);}40%{opacity:.9;}100%{opacity:0; transform:translateX(60%);}}
+        .doc-stamp{display:inline-block; margin-top:6px; padding:5px 12px; border-radius:6px; border:2.5px solid #1f7a5a; color:#1f7a5a; font-weight:1000; font-size:clamp(.54rem,1.9vw,.72rem); letter-spacing:.14em; transform:rotate(-5deg) scale(1); opacity:1;}
+        .sim.reading .doc-stamp{animation:stampIn .4s cubic-bezier(.2,1.3,.4,1) .3s both;}
+        @keyframes stampIn{0%{opacity:0; transform:rotate(-5deg) scale(1.6);}100%{opacity:1; transform:rotate(-5deg) scale(1);}}
         .doc-qr{width:clamp(52px,15vw,84px); aspect-ratio:1; background:#fff; border:1px solid #cbb98f; border-radius:6px; padding:4px;}
         .doc-qr canvas{width:100%; height:100%; display:block;}
         .doc-foot{margin-top:4%; text-align:center; color:#7c8f9a; font-size:clamp(.46rem,1.6vw,.6rem); font-weight:700;}
@@ -730,8 +657,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .fp-hand{position:absolute; z-index:40; left:0; right:0; bottom:-4%; height:44%; pointer-events:none;}
         .fp-arm{position:absolute; bottom:-30%; right:6%; width:clamp(120px,24vw,240px); height:clamp(260px,44vw,460px); transform-origin:bottom; transform:translateY(120%); opacity:0; transition:transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .5s ease; will-change:transform;}
         .sim.picking .fp-arm{transform:translateY(28%) rotate(-6deg); opacity:1;}
-        .sim.reading .fp-hand{z-index:122;}
-        .sim.reading .fp-arm{transform:translateY(58%) rotate(-3deg); opacity:1;}
+        .sim.reading .fp-arm{opacity:0;}
         .fp-sleeve{position:absolute; left:20%; right:20%; bottom:0; height:66%; border-radius:38% 38% 16% 16%; background:linear-gradient(90deg,#0a1a2a,#1d3e5d 48%,#0b2034);}
         .fp-palm{position:absolute; left:24%; top:2%; width:52%; height:36%; border-radius:45% 45% 40% 40%; background:linear-gradient(90deg,#ad704b,#edba8d 50%,#c8865c);}
         .fp-arm i{position:absolute; top:-3%; width:13%; height:30%; border-radius:45% 45% 35% 35%; background:linear-gradient(90deg,#b67852,#edba8d 52%,#c88961);}
@@ -741,17 +667,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .fp-arm i:nth-child(6){left:62%; transform:rotate(8deg); height:24%;}
 
         /* D) 67. kat penceresi (kapı açılmadan görünür) */
-        .sky-window{position:absolute; z-index:3; left:6%; top:24%; width:26%; height:40%; border-radius:8px; overflow:hidden; border:clamp(4px,1vw,10px) solid #37505d; box-shadow:0 12px 30px rgba(0,0,0,.4), inset 0 0 30px rgba(0,0,0,.25);}
-        .sky-window .sky{position:absolute; inset:0; background:linear-gradient(180deg,#7fc4f0,#cfeafe 70%,#eaf6ff);}
-        .sky-window .sky.dusk{background:linear-gradient(180deg,#33456e,#b56b57 60%,#f0b27a);}
-        .sky-window .sky.night{background:linear-gradient(180deg,#0a1430,#132a4d 70%,#264066);}
-        .sky-window .city{position:absolute; left:0; right:0; bottom:0; height:52%; background:
-            linear-gradient(90deg,#37506b 0 8%,transparent 8% 12%,#2b4257 12% 20%,transparent 20% 24%,#3d5872 24% 34%,transparent 34% 38%,#2b4257 38% 48%,transparent 48% 52%,#425e79 52% 62%,transparent 62% 66%,#2f4a60 66% 78%,transparent 78% 82%,#3a5570 82% 94%);
-            opacity:.9;}
-        .sky-window .city.lit{background:
-            linear-gradient(90deg,#22344a 0 8%,transparent 8% 12%,#1a2a3d 12% 20%,transparent 20% 24%,#243a52 24% 34%,transparent 34% 38%,#1a2a3d 38% 48%,transparent 48% 52%,#2a4058 52% 62%,transparent 62% 66%,#1e3145 66% 78%,transparent 78% 82%,#24384f 82% 94%);}
-        .sky-window .city.lit::after{content:""; position:absolute; inset:0; background:radial-gradient(1px 1px at 20% 40%, #ffe9a8, transparent),radial-gradient(1px 1px at 55% 60%, #ffe9a8, transparent),radial-gradient(1px 1px at 80% 30%, #fff2c8, transparent),radial-gradient(1px 1px at 35% 75%, #ffe9a8, transparent); opacity:.85;}
-        .sky-window::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);}
 
         .sim-status{position:absolute; z-index:130; left:50%; bottom:max(16px,env(safe-area-inset-bottom)); transform:translateX(-50%); max-width:calc(100vw - 30px); padding:9px 16px; border-radius:999px; color:#d9f5ff; background:rgba(3,16,26,.78); border:1px solid rgba(141,222,255,.24); backdrop-filter:blur(12px); font-size:clamp(.66rem,2.2vw,.8rem); font-weight:900; letter-spacing:.08em; text-align:center;}
 
@@ -853,9 +768,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .hero-content .progress-ring{justify-self:start; margin-top:6px;}
             .dept-panel{right:6%; top:17%; width:min(46vw,240px);}
             .cabin-doorway{left:20%; right:20%;}
-            .floor-strip{width:min(11vw,46px);}
-            .sky-window{width:30%; left:4%;}
-            .cabin-plate,.emg{width:min(24vw,110px);}
+            .cabin-plate{width:min(24vw,110px);}
         }
         @media (max-width:640px){
             .brand-mini span:last-child{display:none;}
@@ -870,10 +783,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .dept-btn{min-height:42px; margin:5px 0;}
             .cabin-doorway{left:15%; right:15%;}
             .cabin-plate{left:2%; top:16%; font-size:.5rem;}
-            .cabin-vent{display:none;}
-            .emg{left:2%; top:30%;}
-            .floor-strip{right:2%; width:38px;}
-            .sky-window{left:3%; top:22%; width:30%; height:34%;}
             .office-sign .os-main{font-size:.82rem;}
         }
         @media (max-width:400px){
@@ -1015,35 +924,16 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         <div class="read-dim"></div>
         <div class="sim-world" id="simWorld">
 
-            <!-- OFİS -->
+            <!-- OFİS (sade: aydınlık koridor + kat tabelası) -->
             <div class="stage office">
-                <div class="op-layer op-far">
-                    <div class="office-ceil"></div>
-                    <div class="office-floor"></div>
-                    <div class="god-ray"></div>
-                    <div class="office-wall left"></div>
-                    <div class="office-wall right"></div>
-                    <div class="office-sign"><span class="os-main">PERSONEL VE ÇALIŞMA İLİŞKİLERİ</span><span class="os-floor" data-i18n="floor67">67. KAT</span></div>
-                </div>
-                <div class="op-layer op-mid">
-                    <div class="desk d1"></div><div class="desk d2"></div>
-                    <div class="person worker wk1"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span></div>
-                    <div class="person worker wk2"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span></div>
-                    <div class="person worker wk3"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span></div>
-                </div>
-                <div class="op-layer op-near">
-                    <div class="person secretary" id="secretary">
-                        <span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span>
-                        <span class="ph-body"></span>
-                        <span class="ph-arm l"></span><span class="ph-arm r"></span>
-                        <span class="ph-leg l"></span><span class="ph-leg r"></span>
-                        <span class="sec-folder"></span>
-                        
-                    </div>
-                </div>
+                <div class="office-ceil"></div>
+                <div class="office-floor"></div>
+                <div class="office-wall left"></div>
+                <div class="office-wall right"></div>
+                <div class="office-sign"><span class="os-main">PERSONEL VE ÇALIŞMA İLİŞKİLERİ</span><span class="os-floor" data-i18n="floor67">67. KAT</span></div>
             </div>
 
-            <!-- KABİN -->
+            <!-- KABİN (sade) -->
             <div class="stage cabin">
                 <div class="cabin-ceil"></div>
                 <div class="spot s1"></div><div class="spot s2"></div><div class="spot s3"></div>
@@ -1051,17 +941,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 <div class="wall left"></div>
                 <div class="wall right"></div>
 
-                <div class="cabin-vent"></div>
                 <div class="cabin-plate" data-i18n="cabinPlate">MAX 8 KİŞİ<br>630 KG</div>
-                <div class="emg"><span class="emg-btn"></span><span class="emg-ico"></span></div>
-
-                <div class="sky-window"><div class="sky" id="skyLayer"><div class="city" id="cityLayer"></div></div></div>
-
-                <div class="floor-strip"><div class="fs-track" id="fsTrack"></div></div>
-
-                <div class="person pax p1"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span><span class="ph-prop"></span></div>
-                <div class="person pax p2 tablet"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span><span class="ph-prop"></span></div>
-                <div class="person pax p3 folder"><span class="ph-shadow"></span><span class="ph-hair"></span><span class="ph-head"></span><span class="ph-body"></span><span class="ph-arm l"></span><span class="ph-arm r"></span><span class="ph-leg l"></span><span class="ph-leg r"></span><span class="ph-prop"></span></div>
 
                 <div class="floor-ind"><div class="fi-top"><span class="fi-arrow">▲</span><b id="floorValue">0</b></div><small data-i18n="leaveLevelUpper">KAT</small></div>
                 <div class="cabin-clock" id="cabinClock">00:00</div>
@@ -1095,7 +975,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             </div>
         </div>
 
-        <!-- Belge: okuma anında net kalması için sahne dışında, üst katmanda -->
+        <!-- Belge: direkt onaylı, üst katmanda net -->
         <div class="doc" id="doc">
                             <div class="doc-inner">
                                 <div class="doc-band"><span class="doc-logo-mark">İ</span><span>PERSONEL İZİN BİLDİRİMİ</span></div>
@@ -1441,42 +1321,17 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         }
         function pulse(cls, ms=600){ const sim=document.getElementById("sim"); sim.classList.add(cls); setTimeout(()=>sim.classList.remove(cls), ms); }
 
-        function buildFloorStrip(){
-            const track = document.getElementById("fsTrack");
-            track.innerHTML = "";
-            for(let i=1;i<=67;i++){
-                const c = document.createElement("div");
-                c.className = "fs-cell"; c.dataset.f = i; c.textContent = i;
-                track.appendChild(c);
-            }
-        }
-        function updateFloorStrip(current){
-            const track = document.getElementById("fsTrack");
-            track.querySelectorAll(".fs-cell").forEach(c=>{
-                c.classList.toggle("on", Number(c.dataset.f) === Math.round(current));
-            });
-            const ratio = Math.min(current/67, 1);
-            track.style.transform = `translateY(${ratio * Math.max(0, track.scrollHeight - track.parentElement.clientHeight + 16)}px)`;
-        }
-
         function startCabinClock(){
             const el = document.getElementById("cabinClock");
             const tick = ()=>{ const n=new Date(); el.textContent = String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0"); };
             tick(); clearInterval(clockTimer); clockTimer = setInterval(tick, 15000);
-        }
-        function setSkyByTime(){
-            const h = new Date().getHours();
-            const sky = document.getElementById("skyLayer");
-            const city = document.getElementById("cityLayer");
-            sky.className = "sky"; city.className = "city";
-            if(h >= 20 || h < 6){ sky.classList.add("night"); city.classList.add("lit"); }
-            else if(h >= 18 || h < 8){ sky.classList.add("dusk"); city.classList.add("lit"); }
         }
 
         function animateFloor(target, duration, runId){
             return new Promise(resolve=>{
                 const start = performance.now();
                 const floor = document.getElementById("floorValue");
+                const ind = document.querySelector(".floor-ind");
                 const sim = document.getElementById("sim");
                 let lastTen = 0;
                 function ease(p){
@@ -1486,16 +1341,14 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 function frame(now){
                     if(runId !== animationRunId){ sim.classList.remove("fast"); resolve(false); return; }
                     const progress = Math.min((now - start) / duration, 1);
-                    const fast = progress > .3 && progress < .88;
-                    sim.classList.toggle("fast", fast);
+                    sim.classList.toggle("fast", progress > .3 && progress < .88);
                     const val = Math.floor(target * ease(progress));
                     floor.textContent = formatNumber(val);
-                    updateFloorStrip(val);
-                    // 30) her 10 katta parlama
+                    // her 10 katta hafif parlama
                     const ten = Math.floor(val/10);
-                    if(ten !== lastTen && val > 0){ lastTen = ten; document.querySelector(".floor-ind").classList.remove("flash"); void document.querySelector(".floor-ind").offsetWidth; document.querySelector(".floor-ind").classList.add("flash"); }
+                    if(ten !== lastTen && val > 0){ lastTen = ten; ind.classList.remove("flash"); void ind.offsetWidth; ind.classList.add("flash"); }
                     if(progress < 1) requestAnimationFrame(frame);
-                    else { sim.classList.remove("fast"); floor.textContent = formatNumber(target); updateFloorStrip(target); resolve(true); }
+                    else { sim.classList.remove("fast"); floor.textContent = formatNumber(target); resolve(true); }
                 }
                 requestAnimationFrame(frame);
             });
@@ -1509,68 +1362,66 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.querySelector(".dept-btn.target").classList.remove("lit","pressed");
             document.querySelector(".floor-ind").classList.remove("ding","flash");
             document.getElementById("docBalance").textContent = "0";
-            updateFloorStrip(0);
         }
+
 
         async function playElevatorAnimation(user){
             const runId = ++animationRunId;
             resetSim();
-            buildFloorStrip();
-            setSkyByTime();
             startCabinClock();
             const sim = document.getElementById("sim");
             const loginPanel = document.getElementById("loginPanel");
             const dashboard = document.getElementById("dashboard");
             const entry = document.getElementById("entryDoors");
 
-            // Belge hazırlığı
+            // Belge hazırlığı — direkt onaylı
             document.getElementById("docTitle").textContent = t("noteTitle")(user.name);
+            document.getElementById("docBalance").textContent = formatNumber(user.remaining_leave);
             const now = new Date();
-            // 80) her girişte farklı referans (tarih+saat+kullanıcı)
             const stamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}`;
             const uid = String(user.username).replace(/\D/g,"").padStart(4,"0").slice(-4) || "0000";
             const ref = `RET-${stamp}-${uid}`;
             document.getElementById("docRef").textContent = `Ref: ${ref}`;
-            drawDocQr({ref, id:user.username, name:user.name, bal:user.remaining_leave, t:now.toISOString()});
+            drawDocQr({ref, id:user.username, name:user.name, bal:user.remaining_leave});
 
-            // A) giriş kapıları kapanır -> arkada sim hazırlanır (ilk render jank gizlenir) -> kapılar açılır
+            // Giriş kapıları kapanır -> arkada sim hazırlanır (ilk render gizlenir) -> aralanır
             entry.classList.add("active");
             await nextFrames(2);
             entry.classList.add("closing");
-            await delay(1050, runId); if(runId!==animationRunId){ entry.classList.remove("active","closing"); return; }
+            await delay(950, runId); if(runId!==animationRunId){ entry.classList.remove("active","closing"); return; }
             loginPanel.hidden = true; dashboard.hidden = true;
             sim.hidden = false;
-            await nextFrames(3);              // sim ilk boyaması bitsin (takılma olmasın)
-            entry.classList.remove("closing"); // kapılar aralanır -> sim lobisi görünür
-            await delay(1000, runId);
+            await nextFrames(3);
+            entry.classList.remove("closing");
+            await delay(900, runId);
             entry.classList.remove("active");
 
             const target = 67;
 
             setStatus("stCalling");
-            if(!(await delay(800, runId))) return;
+            if(!(await delay(650, runId))) return;
             simClass(["lobby-open"]); setStatus("stDoorsOpen");
-            if(!(await delay(2200, runId))) return;
-
-            simClass(["stepped"]); setStatus("stEntering");
             if(!(await delay(1800, runId))) return;
 
-            // Departmana basış: el + ripple + çöküş, sonra SEÇİLİ KALIR
+            simClass(["stepped"]); setStatus("stEntering");
+            if(!(await delay(1400, runId))) return;
+
+            // Departman seçimi: el gelir, buton basılır ve seçili kalır
             simClass(["picking"]); setStatus("stPicking"); buzz(25);
-            if(!(await delay(1500, runId))) return;
+            if(!(await delay(1200, runId))) return;
             const target5 = document.querySelector(".dept-btn.target");
             target5.classList.add("pressed");
-            if(!(await delay(700, runId))) return;
+            if(!(await delay(600, runId))) return;
             target5.classList.add("lit");
             simClass([], ["picking"]);
-            if(!(await delay(700, runId))) return;
+            if(!(await delay(500, runId))) return;
 
-            // Yolculuk: yaylanma + ışık titremesi + motor sesi + kat şeridi + gösterge
-            simClass(["riding","flicker","bump"]); setStatus("stRising");
+            // Yolculuk: kısa, akıcı (motor sesi + gösterge)
+            simClass(["riding","bump"]); setStatus("stRising");
             Audio.startHum();
-            setTimeout(()=>{ if(runId===animationRunId) Audio.fastHum(true); }, 3500);
-            setTimeout(()=>{ if(runId===animationRunId) sim.classList.remove("bump","flicker"); }, 800);
-            const floorDone = await animateFloor(target, 13000, runId);
+            setTimeout(()=>{ if(runId===animationRunId) Audio.fastHum(true); }, 2500);
+            setTimeout(()=>{ if(runId===animationRunId) sim.classList.remove("bump"); }, 700);
+            const floorDone = await animateFloor(target, 8000, runId);
             if(!floorDone || runId !== animationRunId){ Audio.stopHum(); return; }
             Audio.fastHum(false); Audio.stopHum();
             simClass(["bump"], ["riding"]);
@@ -1579,33 +1430,18 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.querySelector(".floor-ind").classList.add("ding");
             Audio.ding(); buzz([40, 60, 40]);
             setStatus("stArrived");
-            if(!(await delay(1300, runId))) return;
+            if(!(await delay(1100, runId))) return;
 
-            // Varış: kapılar açılır (ışık sızması) -> ofis görünür
+            // Varış: kapılar açılır -> aydınlık kat görünür
             simClass(["arrived"]); setStatus("stDoorsOpen");
-            if(!(await delay(2000, runId))) return;
+            if(!(await delay(1600, runId))) return;
+            simClass(["exiting","in-office"]); setStatus("stOffice");
+            if(!(await delay(1600, runId))) return;
 
-            // Ofise çıkış: kamera girer, yolcular teker teker çıkar
-            simClass(["exiting","walking","in-office"]); setStatus("stOffice");
-            if(!(await delay(2900, runId))) return;
-
-            // Sekreter masadan kalkıp yaklaşır (bulanıktan netleşir)
-            simClass(["sec-in"]); setStatus("stSecretary");
-            if(!(await delay(3000, runId))) return;
-
-            // Belgeyi klasörden çıkarıp uzatır
-            simClass(["sec-offer"]); setStatus("stDelivery");
-            if(!(await delay(1500, runId))) return;
-
-            // Okuma: arka plan bulanık, belge büyür, sayaç sayar, mühür basılır
-            simClass(["reading"], ["walking"]);
+            // Onaylı belge merkeze gelir (numara/atraksiyon yok)
+            simClass(["reading"]); setStatus("stDelivery");
             buzz(30);
-            const balEl = document.getElementById("docBalance");
-            countUp(balEl, Number(user.remaining_leave||0), 1400);
-            if(!(await delay(1200, runId))) return;
-            // Sekreter belgeyi verdikten sonra masasına döner (132)
-            simClass(["sec-return"]);
-            if(!(await delay(6600, runId))) return;
+            if(!(await delay(3200, runId))) return;
 
             finishAnimation(runId);
         }
