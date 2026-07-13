@@ -374,6 +374,11 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             position:fixed; z-index:60; inset:max(12px,env(safe-area-inset-top)) 14px auto 14px;
             display:flex; justify-content:space-between; align-items:center; pointer-events:none;
         }
+        .topbar::before{
+            content:""; position:fixed; left:0; right:0; top:0; z-index:-1; pointer-events:none;
+            height:calc(env(safe-area-inset-top) + 74px);
+            background:linear-gradient(180deg, var(--bg-1) 40%, transparent);
+        }
         .brand-mini,.top-actions{pointer-events:auto; display:flex; align-items:center; gap:8px;}
         .brand-mini{
             padding:9px 13px; border:1px solid var(--line); border-radius:16px;
@@ -611,6 +616,33 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .office-sign{position:absolute; z-index:5; left:50%; top:9.5%; transform:translateX(-50%); white-space:nowrap; text-align:center; padding:9px 20px; border-radius:12px; color:#eaf7ff; background:linear-gradient(#1c4a66,#0f3550); border:1px solid rgba(160,220,245,.55); box-shadow:0 10px 26px rgba(9,40,58,.35), inset 0 1px 0 rgba(255,255,255,.22); font-weight:1000; letter-spacing:.1em;}
         .office-sign .os-main{font-size:clamp(.85rem,3vw,1.45rem);}
         .office-sign .os-floor{display:block; margin-top:2px; font-size:clamp(.6rem,2vw,.85rem); color:#7fe6ff; text-shadow:0 0 12px rgba(90,220,255,.7);}
+
+        /* 5 kişilik ekip — sade, orantılı figürler (kol/bacak yok) */
+        .crew-row{position:absolute; z-index:5; left:0; right:0; bottom:15%; display:flex; justify-content:center; align-items:flex-end; gap:clamp(8px,3vw,26px);}
+        .crew{position:relative; width:clamp(44px,12vw,78px); height:var(--ch,150px); opacity:0; transform:translateY(20px); transition:opacity .5s ease, transform .7s cubic-bezier(.2,.8,.2,1), filter .5s ease; will-change:transform,opacity;}
+        .crew:nth-child(1){--ch:clamp(120px,24vh,168px);}
+        .crew:nth-child(2){--ch:clamp(126px,25vh,176px);}
+        .crew:nth-child(3){--ch:clamp(150px,30vh,210px);}   /* Semih — biraz uzun boylu */
+        .crew:nth-child(4){--ch:clamp(122px,24vh,170px);}
+        .crew:nth-child(5){--ch:clamp(128px,25vh,180px);}
+        .sim.in-office .crew{opacity:1; transform:none;}
+        .sim.in-office .crew:nth-child(1){transition-delay:.05s;}
+        .sim.in-office .crew:nth-child(2){transition-delay:.15s;}
+        .sim.in-office .crew:nth-child(3){transition-delay:.25s;}
+        .sim.in-office .crew:nth-child(4){transition-delay:.35s;}
+        .sim.in-office .crew:nth-child(5){transition-delay:.45s;}
+        .crew .c-shadow{position:absolute; left:50%; bottom:-7px; transform:translateX(-50%); width:82%; height:9px; border-radius:50%; background:radial-gradient(closest-side, rgba(0,0,0,.32), transparent 72%);}
+        .crew .c-head{position:absolute; left:50%; top:0; transform:translateX(-50%); width:42%; aspect-ratio:1; border-radius:50%; background:linear-gradient(90deg,#c68a5e,var(--skin,#e6b183) 55%,#cf9366);}
+        .crew .c-hair{position:absolute; left:50%; top:-2%; transform:translateX(-50%); width:47%; height:26%; border-radius:50% 50% 42% 42%; background:var(--hair,#241a14);}
+        .crew .c-body{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:100%; height:64%; border-radius:46% 46% 18% 18% / 62% 62% 14% 14%; background:var(--suit,#2b5170); box-shadow:inset 0 8px 14px rgba(255,255,255,.1), inset 0 -8px 14px rgba(0,0,0,.15);}
+        /* Semih öne çıkar */
+        .sim.crew-step .crew{filter:brightness(.82);}
+        .sim.crew-step .crew.semih{filter:none; transform:translateY(42%) scale(1.5); z-index:9;}
+        /* isim rozeti */
+        .name-badge{position:absolute; z-index:10; left:50%; bottom:7%; transform:translate(-50%,14px); padding:9px 20px; border-radius:14px; text-align:center; background:rgba(6,26,46,.94); border:1px solid var(--primary); box-shadow:0 12px 30px rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .5s ease, transform .5s ease;}
+        .name-badge .nb-name{display:block; color:#eaf7ff; font-weight:1000; font-size:clamp(1rem,4vw,1.35rem); letter-spacing:.01em;}
+        .name-badge small{display:block; margin-top:2px; color:#8fbfe0; font-size:clamp(.6rem,2.2vw,.78rem); font-weight:700;}
+        .sim.crew-step .name-badge{opacity:1; transform:translate(-50%,0);}
 
 
         /* BELGE — klasörden çıkar, açılır (54), önümüze gelir; QR(8), mühür(26/45) */
@@ -921,6 +953,16 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 <div class="office-wall left"></div>
                 <div class="office-wall right"></div>
                 <div class="office-sign"><span class="os-main">PERSONEL VE ÇALIŞMA İLİŞKİLERİ</span><span class="os-floor" data-i18n="floor67">67. KAT</span></div>
+
+                <!-- 5 kişilik departman ekibi; Semih Bayat biraz uzun boylu, öne çıkar -->
+                <div class="crew-row">
+                    <div class="crew" style="--suit:#2f5a7d; --hair:#241a14"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
+                    <div class="crew" style="--suit:#3a4a58; --hair:#1c1410"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
+                    <div class="crew semih" style="--suit:#1f6f8b; --hair:#2b1d15"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
+                    <div class="crew" style="--suit:#4a3f5c; --hair:#20160f"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
+                    <div class="crew" style="--suit:#2e5148; --hair:#241a14"><span class="c-shadow"></span><span class="c-hair"></span><span class="c-head"></span><span class="c-body"></span></div>
+                </div>
+                <div class="name-badge"><span class="nb-name">Semih Bayat</span><small>Personel ve Çalışma İlişkileri</small></div>
             </div>
 
             <!-- KABİN (sade) -->
@@ -1058,7 +1100,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 firstLogin:"İlk giriş", greetingMorning:"Günaydın", greetingDay:"Hoş geldiniz", greetingEvening:"İyi akşamlar",
                 stCalling:"ASANSÖR ÇAĞRILIYOR", stDoorsOpen:"KAPILAR AÇILIYOR", stEntering:"ASANSÖRE BİNİLİYOR",
                 stPicking:"PERSONEL VE ÇALIŞMA İLİŞKİLERİ SEÇİLİYOR", stRising:"YUKARI ÇIKIYOR",
-                stArrived:"67. KATA ULAŞILDI", stOffice:"KATA ÇIKILIYOR", stSecretary:"SEKRETER YAKLAŞIYOR", stDelivery:"BELGE TESLİM EDİLİYOR",
+                stArrived:"67. KATA ULAŞILDI", stOffice:"KATA ÇIKILIYOR", stCrew:"PERSONEL VE ÇALIŞMA İLİŞKİLERİ EKİBİ", stSemih:"SEMİH BAYAT KARŞILIYOR", stSecretary:"SEKRETER YAKLAŞIYOR", stDelivery:"BELGE TESLİM EDİLİYOR",
                 fillFields:"Lütfen kullanıcı adı ve şifreyi girin.", loginError:"Kullanıcı adı veya şifre hatalı.",
                 serverError:"Sunucuya bağlanılamadı.", blocked:"Çok fazla hatalı deneme. Lütfen daha sonra tekrar deneyin.",
                 installReady:"Uygulama ana ekrana eklenmeye hazır.",
@@ -1102,7 +1144,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 firstLogin:"First sign-in", greetingMorning:"Good morning", greetingDay:"Welcome", greetingEvening:"Good evening",
                 stCalling:"CALLING ELEVATOR", stDoorsOpen:"DOORS OPENING", stEntering:"ENTERING ELEVATOR",
                 stPicking:"SELECTING PERSONNEL AND LABOUR RELATIONS", stRising:"GOING UP",
-                stArrived:"REACHED FLOOR 67", stOffice:"ENTERING THE FLOOR", stSecretary:"SECRETARY IS APPROACHING", stDelivery:"DELIVERING DOCUMENT",
+                stArrived:"REACHED FLOOR 67", stOffice:"ENTERING THE FLOOR", stCrew:"PERSONNEL & LABOUR RELATIONS TEAM", stSemih:"SEMİH BAYAT WELCOMES YOU", stSecretary:"SECRETARY IS APPROACHING", stDelivery:"DELIVERING DOCUMENT",
                 fillFields:"Please enter your username and password.", loginError:"Incorrect username or password.",
                 serverError:"Could not connect to the server.", blocked:"Too many failed attempts. Please try again later.",
                 installReady:"The app is ready to be installed.",
@@ -1414,16 +1456,20 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             setStatus("stArrived");
             if(!(await delay(1700, runId))) return;   // 67 sayısı net görünsün
 
-            // Varış: kapılar açılır -> aydınlık kat görünür
+            // Varış: kapılar açılır -> aydınlık kat görünür, ekip belirir
             simClass(["arrived"]); setStatus("stDoorsOpen");
             if(!(await delay(1700, runId))) return;
-            simClass(["exiting","in-office"]); setStatus("stOffice");
-            if(!(await delay(2100, runId))) return;    // kat oturmadan evrak gelmesin
+            simClass(["exiting","in-office"]); setStatus("stCrew");
+            if(!(await delay(2000, runId))) return;   // 5 kişilik ekip belirsin
+
+            // Semih Bayat öne çıkar, adı görünür
+            simClass(["crew-step"]); setStatus("stSemih"); buzz(20);
+            if(!(await delay(2600, runId))) return;
 
             // Onaylı belge yumuşakça merkeze gelir
             simClass(["reading"]); setStatus("stDelivery");
             buzz(30);
-            if(!(await delay(3400, runId))) return;
+            if(!(await delay(3200, runId))) return;
 
             finishAnimation(runId);
         }
