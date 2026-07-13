@@ -338,7 +338,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
     <style>
         :root{
             --bg-1:#061426; --bg-2:#0b3152;
-            --panel:rgba(9,35,59,.76); --panel-strong:rgba(6,26,46,.94);
+            --panel:rgba(11,38,62,.94); --panel-strong:rgba(6,26,46,.94);
             --text:#f4fbff; --muted:#a8c4d8;
             --primary:#55d9ff; --primary-2:#1489c9;
             --brand:#155192; --brand-2:#1e6fbf;
@@ -348,7 +348,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         }
         body.light{
             --bg-1:#dff4ff; --bg-2:#eff9ff;
-            --panel:rgba(255,255,255,.78); --panel-strong:rgba(255,255,255,.96);
+            --panel:rgba(255,255,255,.96); --panel-strong:rgba(255,255,255,.96);
             --text:#10283d; --muted:#527089;
             --primary:#087fc4; --primary-2:#23b5e8;
             --line:rgba(14,116,174,.16); --shadow:0 28px 70px rgba(39,96,131,.18);
@@ -376,7 +376,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .brand-mini,.top-actions{pointer-events:auto; display:flex; align-items:center; gap:8px;}
         .brand-mini{
             padding:9px 13px; border:1px solid var(--line); border-radius:16px;
-            background:var(--panel); backdrop-filter:blur(18px);
+            background:var(--panel);
             box-shadow:0 12px 30px rgba(0,0,0,.14); font-weight:800; letter-spacing:.03em;
         }
         .brand-mark{
@@ -385,7 +385,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             color:#042039; font-weight:1000;
         }
         .icon-btn,.install-btn{
-            border:1px solid var(--line); background:var(--panel); backdrop-filter:blur(18px);
+            border:1px solid var(--line); background:var(--panel);
             border-radius:14px; min-height:42px; padding:0 12px; cursor:pointer;
             box-shadow:0 12px 30px rgba(0,0,0,.12);
             transition:transform .2s ease, border-color .2s ease;
@@ -400,7 +400,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         }
         .glass{
             border:1px solid var(--line); background:var(--panel);
-            backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+            
             box-shadow:var(--shadow); border-radius:var(--radius);
         }
 
@@ -584,7 +584,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .sim.exiting .stage.cabin{opacity:0; transform:scale(1.28);}
 
         /* 47) gerçek zamanlı dijital saat */
-        .cabin-clock{position:absolute; z-index:20; left:50%; top:calc(max(3.5%,env(safe-area-inset-top)) + 74px); transform:translateX(-50%); padding:3px 12px; border-radius:6px; color:#8fe6ff; background:rgba(3,10,16,.7); border:1px solid rgba(120,200,225,.28); font:800 .8rem/1 ui-monospace,monospace; letter-spacing:.14em;}
 
         /* Departman paneli — içeride, geniş, yazılar tam */
         .dept-panel{position:absolute; z-index:22; right:12%; top:19%; width:min(40vw,270px); padding:12px; border-radius:15px; background:linear-gradient(150deg,#43576a,#17262f 55%,#0c1820); border:1px solid rgba(200,235,250,.26); box-shadow:0 20px 40px rgba(0,0,0,.34), inset 0 0 20px rgba(255,255,255,.04); transition:opacity .8s ease; transform:translateZ(0); will-change:opacity;}
@@ -614,34 +613,30 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
 
         /* BELGE — klasörden çıkar, açılır (54), önümüze gelir; QR(8), mühür(26/45) */
-        .doc{position:fixed; z-index:125; left:50%; bottom:50%; width:min(560px,90vw); aspect-ratio:1/1.32; padding:6% 6% 5%; border-radius:8px; background:linear-gradient(180deg,#fffdf5,#f5edd9); color:#173044; border:1px solid #d8c692; box-shadow:0 30px 70px rgba(0,0,0,.5); transform:translate(-50%,58%) scale(.94); transform-origin:center center; opacity:0; pointer-events:none; transition:transform .7s cubic-bezier(.2,.83,.2,1), opacity .5s ease; overflow:hidden; will-change:transform,opacity;}
-        .doc::before{content:""; position:absolute; inset:5%; border:2px solid rgba(31,87,112,.16); pointer-events:none;}
-        /* kağıt dokusu */
-        .doc::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(120,90,40,.04) 0 2px, transparent 2px 4px); pointer-events:none;}
-        /* 35) okuma: arka plan bulanık+kısık, belge merkeze büyür (18 daha büyük, tam açık) */
+        .doc{position:fixed; z-index:125; left:50%; bottom:50%; width:min(420px,90vw); max-height:88vh; overflow:auto; padding:22px 22px 18px; border-radius:12px; background:linear-gradient(180deg,#fffdf6,#f4ecd7); color:#173044; border:1px solid #d8c692; box-shadow:0 26px 64px rgba(0,0,0,.5); transform:translate(-50%,54%) scale(.96); transform-origin:center; opacity:0; pointer-events:none; transition:transform .85s cubic-bezier(.2,.83,.2,1), opacity .7s ease; will-change:transform,opacity;}
+        .doc::before{content:""; position:absolute; inset:8px; border:1.5px solid rgba(31,87,112,.14); border-radius:8px; pointer-events:none;}
         .sim.reading .doc{opacity:1; transform:translate(-50%,50%) scale(1);}
-        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(4,12,20,.72); opacity:0; pointer-events:none; transition:opacity .8s ease;}
+        .read-dim{position:fixed; inset:0; z-index:110; background:rgba(4,12,20,.74); opacity:0; pointer-events:none; transition:opacity 1.1s ease;}
         .sim.reading .read-dim{opacity:1;}
-        .doc-inner{position:relative; z-index:2; height:100%; display:flex; flex-direction:column;}
-        .doc-band{display:flex; align-items:center; gap:8px; padding-bottom:5%; border-bottom:2px solid rgba(31,87,112,.18); color:#245874; font-weight:1000; letter-spacing:.05em; font-size:clamp(.6rem,2.1vw,.85rem);}
-        .doc-logo-mark{width:clamp(26px,6vw,38px); aspect-ratio:1; display:grid; place-items:center; border-radius:8px; color:#fff; background:linear-gradient(145deg,#168bc7,#0b456b); font-weight:1000;}
-        .doc-ref{margin-top:4%; color:#6b7f8c; font-size:clamp(.52rem,1.8vw,.72rem); font-weight:800;}
-        .doc-title{margin-top:2%; font-family:Georgia,"Times New Roman",serif; font-size:clamp(1.1rem,4.6vw,1.9rem); color:#19394e; font-weight:800;}
-        .doc-caption{color:#4f6c7c; font-weight:750; font-size:clamp(.66rem,2.3vw,.92rem);}
-        .doc-balance{margin:2% 0; font-size:clamp(2rem,11vw,4rem); line-height:1; color:#087eb7; font-weight:1000; letter-spacing:-.04em;}
-        .doc-balance small{font-size:.3em; color:#4f6c7c; font-weight:800;}
-        .doc-mid{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:auto;}
-        .doc-sign{text-align:right; color:#315b70; flex:1;}
-        .doc-sign .sg-role{display:block; font-size:clamp(.58rem,2vw,.82rem); font-weight:750; color:#4f6c7c;}
-        .doc-sign .sg-name{display:block; margin-top:2px; font-family:Inter,"Segoe UI",sans-serif; font-weight:900; font-size:clamp(.85rem,3.1vw,1.15rem); color:#1b3a4c;}
-        .sg-line{height:2px; margin:5px 0 5px auto; width:0; background:#315b70; transition:width 1s ease .3s;}
-        .sim.reading .sg-line{width:60%;}
-        .doc-stamp{display:inline-block; margin-top:6px; padding:5px 12px; border-radius:6px; border:2.5px solid #1f7a5a; color:#1f7a5a; font-weight:1000; font-size:clamp(.54rem,1.9vw,.72rem); letter-spacing:.14em; transform:rotate(-5deg) scale(1); opacity:1;}
-        .sim.reading .doc-stamp{animation:stampIn .4s cubic-bezier(.2,1.3,.4,1) .3s both;}
-        @keyframes stampIn{0%{opacity:0; transform:rotate(-5deg) scale(1.6);}100%{opacity:1; transform:rotate(-5deg) scale(1);}}
-        .doc-qr{width:clamp(52px,15vw,84px); aspect-ratio:1; background:#fff; border:1px solid #cbb98f; border-radius:6px; padding:4px;}
+        .doc-inner{position:relative; z-index:2; display:flex; flex-direction:column; gap:9px;}
+        .doc-band{display:flex; align-items:center; gap:10px; padding-bottom:11px; border-bottom:2px solid rgba(31,87,112,.16); color:#245874; font-weight:900; letter-spacing:.03em; font-size:.8rem;}
+        .doc-logo-mark{width:34px; height:34px; flex:0 0 34px; display:grid; place-items:center; border-radius:8px; color:#fff; background:linear-gradient(145deg,#168bc7,#0b456b); font-weight:1000; font-size:1.1rem;}
+        .doc-ref{color:#6b7f8c; font-size:.72rem; font-weight:800; letter-spacing:.02em;}
+        .doc-title{font-family:Georgia,"Times New Roman",serif; font-size:1.45rem; line-height:1.15; color:#19394e; font-weight:800;}
+        .doc-caption{color:#4f6c7c; font-weight:700; font-size:.88rem; margin-top:-3px;}
+        .doc-balance{font-size:2.9rem; line-height:1; color:#087eb7; font-weight:1000; letter-spacing:-.03em; margin:1px 0 4px;}
+        .doc-balance small{font-size:.32em; color:#4f6c7c; font-weight:800; letter-spacing:0;}
+        .doc-mid{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; padding-top:11px; border-top:1px solid rgba(31,87,112,.14);}
+        .doc-sign{color:#315b70; min-width:0;}
+        .doc-sign .sg-role{display:block; font-size:.72rem; font-weight:700; color:#4f6c7c; line-height:1.3;}
+        .doc-sign .sg-name{display:block; margin-top:3px; font-weight:900; font-size:1.02rem; color:#1b3a4c;}
+        .sg-line{height:2px; margin:6px 0; width:70%; background:#315b70;}
+        .doc-stamp{display:inline-block; margin-top:4px; padding:5px 12px; border-radius:6px; border:2.5px solid #1f7a5a; color:#1f7a5a; font-weight:1000; font-size:.66rem; letter-spacing:.12em; transform:rotate(-4deg);}
+        .sim.reading .doc-stamp{animation:stampIn .4s cubic-bezier(.2,1.3,.4,1) .35s both;}
+        @keyframes stampIn{0%{opacity:0; transform:rotate(-4deg) scale(1.5);}100%{opacity:1; transform:rotate(-4deg) scale(1);}}
+        .doc-qr{width:70px; height:70px; flex:0 0 70px; background:#fff; border:1px solid #cbb98f; border-radius:6px; padding:4px;}
         .doc-qr canvas{width:100%; height:100%; display:block;}
-        .doc-foot{margin-top:4%; text-align:center; color:#7c8f9a; font-size:clamp(.46rem,1.6vw,.6rem); font-weight:700;}
+        .doc-foot{text-align:center; color:#7c8f9a; font-size:.6rem; font-weight:700; margin-top:3px;}
 
         /* Kamera hareketleri — sadece yukarı-aşağı, asla sağa-sola */
         .sim.walking .sim-world{animation:walkBob .72s ease-in-out infinite;}
@@ -668,7 +663,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
         /* D) 67. kat penceresi (kapı açılmadan görünür) */
 
-        .sim-status{position:absolute; z-index:130; left:50%; bottom:max(16px,env(safe-area-inset-bottom)); transform:translateX(-50%); max-width:calc(100vw - 30px); padding:9px 16px; border-radius:999px; color:#d9f5ff; background:rgba(3,16,26,.78); border:1px solid rgba(141,222,255,.24); backdrop-filter:blur(12px); font-size:clamp(.66rem,2.2vw,.8rem); font-weight:900; letter-spacing:.08em; text-align:center;}
+        .sim-status{position:absolute; z-index:130; left:50%; bottom:max(16px,env(safe-area-inset-bottom)); transform:translateX(-50%); max-width:calc(100vw - 30px); padding:9px 16px; border-radius:999px; color:#d9f5ff; background:rgba(3,16,26,.92); border:1px solid rgba(141,222,255,.24); font-size:clamp(.66rem,2.2vw,.8rem); font-weight:900; letter-spacing:.08em; text-align:center;}
 
         /* 36) kapanışta logo parlaması */
         .logo-flash{position:fixed; inset:0; z-index:160; display:none; place-items:center; background:radial-gradient(circle at 50% 50%, #0a2440, #04101d); }
@@ -742,7 +737,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .id-number{color:#86dfff; font:800 .78rem ui-monospace,monospace;}
         .qr-box{width:92px; height:92px; padding:7px; border-radius:10px; background:white; display:grid; place-items:center;}
         #qrCanvas{width:78px; height:78px;}
-        .modal-backdrop{position:fixed; z-index:220; inset:0; display:grid; place-items:center; padding:20px; background:rgba(1,10,18,.68); backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .25s ease;}
+        .modal-backdrop{position:fixed; z-index:220; inset:0; display:grid; place-items:center; padding:20px; background:rgba(1,10,18,.82); opacity:0; pointer-events:none; transition:opacity .25s ease;}
         .modal-backdrop.open{opacity:1; pointer-events:auto;}
         .modal{width:min(520px,100%); max-height:min(760px,90dvh); overflow:auto; padding:24px; transform:translateY(14px) scale(.98); transition:transform .25s ease;}
         .modal-backdrop.open .modal{transform:none;}
@@ -790,8 +785,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .big-balance{font-size:clamp(2.6rem,20vw,3.4rem);}
             .dept-panel{width:min(58vw,200px);}
             .floor-ind{min-width:120px; padding:6px 10px;}
-            .cabin-clock{font-size:.68rem;}
-            .doc{width:min(62vw,300px);}
+            .doc{width:min(92vw,360px); padding:18px;}
         }
         @media (prefers-reduced-motion:reduce){
             *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.24s !important;}
@@ -863,7 +857,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                                 <div class="big-balance"><span id="remainingLeave">0</span><small data-i18n="day">GÜN</small></div>
                                 <div class="update-info"><span data-i18n="updated">Son güncelleme:</span> <strong id="updatedAt">-</strong></div>
                             </div>
-                            <div class="progress-ring" id="progressRing"><span><b id="ringValue">0</b><span data-i18n="leaveLevel">Kat</span></span></div>
+                            <div class="progress-ring" id="progressRing"><span><b id="ringValue">0</b><span data-i18n="dayLower">gün</span></span></div>
                         </div>
                     </article>
                     <div class="mini-cards">
@@ -944,7 +938,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 <div class="cabin-plate" data-i18n="cabinPlate">MAX 8 KİŞİ<br>630 KG</div>
 
                 <div class="floor-ind"><div class="fi-top"><span class="fi-arrow">▲</span><b id="floorValue">0</b></div><small data-i18n="leaveLevelUpper">KAT</small></div>
-                <div class="cabin-clock" id="cabinClock">00:00</div>
 
                 <div class="doorway cabin-doorway">
                     <div class="door l"><div class="door-glass"></div></div>
@@ -1038,7 +1031,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         let deferredInstallPrompt = null;
         let currentLanguage = localStorage.getItem("izin-language") || "tr";
         let animationRunId = 0;
-        let clockTimer = null;
 
         const translations = {
             tr: {
@@ -1321,12 +1313,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         }
         function pulse(cls, ms=600){ const sim=document.getElementById("sim"); sim.classList.add(cls); setTimeout(()=>sim.classList.remove(cls), ms); }
 
-        function startCabinClock(){
-            const el = document.getElementById("cabinClock");
-            const tick = ()=>{ const n=new Date(); el.textContent = String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0"); };
-            tick(); clearInterval(clockTimer); clockTimer = setInterval(tick, 15000);
-        }
-
         function animateFloor(target, duration, runId){
             return new Promise(resolve=>{
                 const start = performance.now();
@@ -1368,7 +1354,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         async function playElevatorAnimation(user){
             const runId = ++animationRunId;
             resetSim();
-            startCabinClock();
             const sim = document.getElementById("sim");
             const loginPanel = document.getElementById("loginPanel");
             const dashboard = document.getElementById("dashboard");
@@ -1430,18 +1415,18 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.querySelector(".floor-ind").classList.add("ding");
             Audio.ding(); buzz([40, 60, 40]);
             setStatus("stArrived");
-            if(!(await delay(1100, runId))) return;
+            if(!(await delay(1700, runId))) return;   // 67 sayısı net görünsün
 
             // Varış: kapılar açılır -> aydınlık kat görünür
             simClass(["arrived"]); setStatus("stDoorsOpen");
-            if(!(await delay(1600, runId))) return;
+            if(!(await delay(1700, runId))) return;
             simClass(["exiting","in-office"]); setStatus("stOffice");
-            if(!(await delay(1600, runId))) return;
+            if(!(await delay(2100, runId))) return;    // kat oturmadan evrak gelmesin
 
-            // Onaylı belge merkeze gelir (numara/atraksiyon yok)
+            // Onaylı belge yumuşakça merkeze gelir
             simClass(["reading"]); setStatus("stDelivery");
             buzz(30);
-            if(!(await delay(3200, runId))) return;
+            if(!(await delay(3400, runId))) return;
 
             finishAnimation(runId);
         }
@@ -1450,7 +1435,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             if(runId !== null && runId !== animationRunId) return;
             animationRunId++;
             Audio.stopHum();
-            clearInterval(clockTimer);
+           
             // 36) kapanış logosu
             const lf = document.getElementById("logoFlash");
             lf.classList.add("show");
@@ -1588,7 +1573,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         document.getElementById("installActionBtn").addEventListener("click", installPwa);
         document.getElementById("replayBtn").addEventListener("click", ()=>{ Audio.init(); playElevatorAnimation(currentUser); });
         document.getElementById("logoutBtn").addEventListener("click", ()=>{
-            animationRunId++; Audio.stopHum(); clearInterval(clockTimer); currentUser = null;
+            animationRunId++; Audio.stopHum(); currentUser = null;
             document.getElementById("dashboard").hidden = true;
             document.getElementById("loginPanel").hidden = false;
             const ru = localStorage.getItem("izin-remember-user");
