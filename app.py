@@ -354,9 +354,10 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             --line:rgba(14,116,174,.16); --shadow:0 28px 70px rgba(39,96,131,.18);
         }
         *{box-sizing:border-box;}
-        html{min-height:100%; background:var(--bg-1);}
+        html{min-height:100%; background:#061426; overflow-x:hidden;}
+        html.light{background:#eff9ff;}
         body{
-            margin:0; min-height:100vh; min-height:100dvh; color:var(--text);
+            margin:0; min-height:100vh; min-height:100dvh; width:100%; max-width:100%; overflow-x:hidden; color:var(--text);
             font-family:Inter,"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
             background:
                 radial-gradient(circle at 12% 12%, rgba(63,196,255,.18), transparent 34%),
@@ -676,14 +677,14 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .dashboard{width:min(1120px,100%); margin:0 auto; animation:dashboardIn .5s cubic-bezier(.2,.8,.2,1) both;}
         @keyframes dashboardIn{from{opacity:0; transform:translateY(18px);}to{opacity:1; transform:none;}}
         /* header düzeltmesi: butonlar bilgilerin önüne binmez */
-        .dashboard-header{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; margin-bottom:18px;}
-        .person{display:flex; align-items:center; gap:14px; min-width:0; flex:1 1 240px;}
+        .dashboard-header{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:18px;}
+        .person{display:flex; align-items:center; gap:12px; min-width:0; flex:1 1 100%;}
         .avatar{width:58px; height:58px; flex:0 0 58px; display:grid; place-items:center; border-radius:18px; background:linear-gradient(145deg,var(--primary),var(--primary-2)); color:#032039; font-size:1.15rem; font-weight:1000; box-shadow:0 12px 26px rgba(28,164,220,.25);}
         .person > div{min-width:0;}
         .person h2{margin:0; font-size:clamp(1.2rem,4vw,1.8rem); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
         .person p{margin:4px 0 0; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-        .header-buttons{display:flex; gap:8px; flex:0 0 auto; flex-wrap:wrap;}
-        .small-btn{border:1px solid var(--line); background:var(--panel); border-radius:13px; padding:11px 14px; cursor:pointer; font-weight:800; white-space:nowrap; transition:transform .2s, border-color .2s;}
+        .header-buttons{display:flex; gap:10px; width:100%;}
+        .small-btn{flex:1 1 0; min-width:0; border:1px solid var(--line); background:var(--panel); border-radius:13px; padding:12px 14px; cursor:pointer; font-weight:800; text-align:center; white-space:normal; transition:transform .2s, border-color .2s;}
         .small-btn:hover{transform:translateY(-2px); border-color:var(--primary);}
         .dashboard-grid{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr); gap:18px;}
         .main-column,.side-column{display:grid; gap:18px; align-content:start; min-width:0;}
@@ -693,7 +694,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .mini-card:active,.info-card:active{transform:translateY(-1px) scale(.995);}
         .hero-card{padding:clamp(22px,5vw,36px); position:relative; overflow:hidden;}
         .hero-card::after{content:""; position:absolute; width:260px; height:260px; right:-90px; top:-90px; border-radius:50%; background:radial-gradient(circle,rgba(85,217,255,.24),transparent 67%); pointer-events:none;}
-        .hero-content{display:grid; grid-template-columns:1fr auto; gap:22px; align-items:center; position:relative; z-index:2;}
+        .hero-content{position:relative; z-index:2;}
         .eyebrow{color:var(--primary); text-transform:uppercase; letter-spacing:.13em; font-size:.76rem; font-weight:1000;}
         .big-balance{margin:10px 0 5px; font-size:clamp(3rem,12vw,6.3rem); line-height:.92; letter-spacing:-.075em; font-weight:1000;}
         .big-balance small{font-size:.2em; letter-spacing:.02em; color:var(--muted); margin-left:8px;}
@@ -759,8 +760,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         }
         @media (max-width:900px){
             .dashboard-grid{grid-template-columns:1fr;}
-            .hero-content{grid-template-columns:1fr;}
-            .hero-content .progress-ring{justify-self:start; margin-top:6px;}
             .dept-panel{right:6%; top:17%; width:min(46vw,240px);}
             .cabin-doorway{left:20%; right:20%;}
             .cabin-plate{width:min(24vw,110px);}
@@ -769,8 +768,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .brand-mini span:last-child{display:none;}
             .install-btn span{display:none;}
             .page-shell{padding-left:12px; padding-right:12px;}
-            .header-buttons{width:100%;}
-            .header-buttons .small-btn{flex:1 1 auto; text-align:center;}
             .form-grid{grid-template-columns:1fr;}
             .id-main{grid-template-columns:1fr 84px;}
             .qr-box{width:84px; height:84px;} #qrCanvas{width:70px; height:70px;}
@@ -844,7 +841,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                     </div>
                 </div>
                 <div class="header-buttons">
-                    <button class="small-btn" id="replayBtn" type="button" data-i18n="replay">Asansörü Tekrar İzle</button>
+                    <button class="small-btn" id="replayBtn" type="button" data-i18n="replay">Tekrar İzle</button>
                     <button class="small-btn" id="logoutBtn" type="button" data-i18n="logout">Çıkış</button>
                 </div>
             </div>
@@ -857,7 +854,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                                 <div class="big-balance"><span id="remainingLeave">0</span><small data-i18n="day">GÜN</small></div>
                                 <div class="update-info"><span data-i18n="updated">Son güncelleme:</span> <strong id="updatedAt">-</strong></div>
                             </div>
-                            <div class="progress-ring" id="progressRing"><span><b id="ringValue">0</b><span data-i18n="dayLower">gün</span></span></div>
                         </div>
                     </article>
                     <div class="mini-cards">
@@ -1040,7 +1036,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 usernamePlaceholder:"Kullanıcı adınızı girin", passwordPlaceholder:"Şifrenizi girin",
                 login:"Giriş Yap", forgot:"Şifremi Unuttum",
                 rememberMe:"Bu cihazda kullanıcı adımı hatırla", systemActive:"Sistem aktif", capsLock:"⚠ Caps Lock açık",
-                replay:"Asansörü Tekrar İzle", logout:"Çıkış",
+                replay:"Tekrar İzle", logout:"Çıkış",
                 remainingLeave:"Kalan İzin Hakkınız", day:"GÜN", dayLower:"gün",
                 updated:"Son güncelleme:", leaveLevel:"Kat",
                 sundayLeave:"Pazar İzinleri", officialHoliday:"Resmî Tatil",
@@ -1084,7 +1080,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                 usernamePlaceholder:"Enter your username", passwordPlaceholder:"Enter your password",
                 login:"Sign In", forgot:"Forgot Password",
                 rememberMe:"Remember my username on this device", systemActive:"System active", capsLock:"⚠ Caps Lock is on",
-                replay:"Replay Elevator", logout:"Sign Out",
+                replay:"Replay", logout:"Sign Out",
                 remainingLeave:"Remaining Leave Balance", day:"DAYS", dayLower:"days",
                 updated:"Last update:", leaveLevel:"Floor",
                 sundayLeave:"Sunday Leave", officialHoliday:"Public Holiday",
@@ -1146,6 +1142,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             const hour = new Date().getHours();
             const light = saved ? saved === "light" : !(hour >= 19 || hour < 7);
             document.body.classList.toggle("light", light);
+            document.documentElement.classList.toggle("light", light);
             document.getElementById("themeBtn").textContent = light ? "☀" : "☾";
             document.querySelector('meta[name="theme-color"]').setAttribute("content", light ? "#e7f7ff" : "#071b30");
         }
@@ -1465,9 +1462,8 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.getElementById("personUsername").textContent = user.username || "";
             const bal = Number(user.remaining_leave || 0);
             const remEl = document.getElementById("remainingLeave");
-            const ringEl = document.getElementById("ringValue");
-            if(animate){ countUp(remEl, bal, 1200); countUp(ringEl, bal, 1200); }
-            else { remEl.textContent = formatNumber(bal); ringEl.textContent = formatNumber(bal); }
+            if(animate){ countUp(remEl, bal, 1200); }
+            else { remEl.textContent = formatNumber(bal); }
             document.getElementById("sundayLeave").textContent = formatNumber(user.sunday_leave);
             document.getElementById("officialHoliday").textContent = formatNumber(user.official_holiday);
             document.getElementById("updatedAt").textContent = user.updated_at || "-";
@@ -1475,10 +1471,6 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.getElementById("idName").textContent = user.name;
             document.getElementById("idRole").textContent = user.role;
             document.getElementById("idNumber").textContent = user.username;
-            const degrees = Math.max(14, Math.min(360, (bal / 30) * 360));
-            const ring = document.getElementById("progressRing");
-            if(animate){ ring.style.setProperty("--progress","0deg"); requestAnimationFrame(()=>ring.style.setProperty("--progress",`${degrees}deg`)); }
-            else ring.style.setProperty("--progress",`${degrees}deg`);
             document.getElementById("objectionBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("objectionMessage")(user.name))}`;
             drawQr(document.getElementById("qrCanvas"), {portal:"Personel İzin Portalı", id:user.username, name:user.name, role:user.role}, 156);
             calculateNextHoliday();
