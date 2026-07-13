@@ -587,12 +587,12 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             flex:0 0 22px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
             background:#263840; border:1px solid #7a8f98; color:#cfe0e8; font-weight:1000; font-size:.72rem;
         }
-        .sim.picking .dept-btn.target{
+        .sim.picking .dept-btn.target,.dept-btn.target.lit{
             color:#06131a; background:linear-gradient(#b8f5ff,#4ed7f4); border-color:#d7fbff;
             box-shadow:0 0 24px rgba(71,220,251,.7), inset 0 0 12px rgba(255,255,255,.7);
             transform:translateY(1px);
         }
-        .sim.picking .dept-btn.target .dept-num{background:#fff; border-color:#fff; color:#0a5279; box-shadow:0 0 12px #fff;}
+        .sim.picking .dept-btn.target .dept-num,.dept-btn.target.lit .dept-num{background:#fff; border-color:#fff; color:#0a5279; box-shadow:0 0 12px #fff;}
 
         /* Kabindeki yolcular — yolculuk boyunca kaybolmaz */
         .pax{
@@ -640,7 +640,13 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             transform:perspective(560px) rotateX(63deg); transform-origin:top;}
         .office-wall{position:absolute; top:20%; bottom:16%; width:22%; border:2px solid rgba(51,108,133,.3); background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(111,187,218,.1));}
         .office-wall.left{left:2%;} .office-wall.right{right:2%;}
-        .office-sign{position:absolute; left:50%; top:13%; transform:translateX(-50%); white-space:nowrap; color:#173e53; font-size:clamp(.6rem,2vw,1rem); font-weight:1000; letter-spacing:.16em;}
+        .office-sign{
+            position:absolute; left:50%; top:10.5%; transform:translateX(-50%); white-space:nowrap;
+            padding:10px 22px; border-radius:12px;
+            color:#eaf7ff; background:linear-gradient(#1c4a66,#0f3550);
+            border:1px solid rgba(160,220,245,.5); box-shadow:0 10px 26px rgba(9,40,58,.35), inset 0 1px 0 rgba(255,255,255,.22);
+            font-size:clamp(.95rem,3.4vw,1.7rem); font-weight:1000; letter-spacing:.12em;
+        }
         .desk{position:absolute; bottom:20%; width:22%; height:11%; border-radius:5px 5px 0 0; background:linear-gradient(#b37d50,#6e472d); box-shadow:0 10px 16px rgba(0,0,0,.18);}
         .desk.d1{left:9%;} .desk.d2{right:9%;}
         .desk::after{content:""; position:absolute; left:30%; bottom:100%; width:40%; height:88%; border-radius:4px; background:#16232b; border:3px solid #6b7e88;}
@@ -683,7 +689,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .sim.sec-offer .doc{opacity:1;}
         /* okuma anı: belge büyür ve önümüze gelir */
         .sim.reading .doc{
-            position:fixed; left:50%; top:50%; right:auto;
+            position:fixed; left:50%; top:47%; right:auto; z-index:120;
             width:min(560px,90vw); aspect-ratio:1/1.3;
             transform:translate(-50%,-50%) rotate(-1deg) scale(1); opacity:1;
             box-shadow:0 42px 100px rgba(0,0,0,.55);
@@ -715,6 +721,25 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         @keyframes cabinShake{0%,100%{transform:translateY(0);}25%{transform:translateY(-.25%);}75%{transform:translateY(.2%);}}
         .sim.reading .sim-world{animation:none; transform:translateY(3%);}
 
+        /* Yolculukta geçen kat ışıkları (hız hissi) */
+        .ride-fx{
+            position:absolute; inset:0; z-index:18; opacity:0; pointer-events:none;
+            background:linear-gradient(180deg,transparent 0 42%,rgba(150,228,255,.09) 50%,transparent 58%);
+            background-size:100% 240%;
+        }
+        .sim.riding .ride-fx{opacity:1; animation:floorSweep 1s linear infinite;}
+        .sim.riding.fast .ride-fx{animation-duration:.42s;}
+        @keyframes floorSweep{from{background-position:0 -140%;}to{background-position:0 140%;}}
+        .sim.riding.fast .sim-world{animation-duration:.34s;}
+
+        /* Varışta gösterge 'ding' parlar */
+        .floor-ind.ding{animation:dingPulse 1s ease;}
+        @keyframes dingPulse{
+            0%{box-shadow:inset 0 0 16px rgba(89,221,255,.12),0 0 22px rgba(59,207,247,.16);}
+            30%{box-shadow:inset 0 0 22px rgba(140,236,255,.35),0 0 52px rgba(89,225,255,.85); transform:translateX(-50%) scale(1.05);}
+            100%{transform:translateX(-50%) scale(1);}
+        }
+
         /* Birinci şahıs el */
         .fp-hand{position:absolute; z-index:40; left:0; right:0; bottom:-4%; height:44%; pointer-events:none;}
         .fp-arm{
@@ -723,7 +748,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             transform-origin:bottom; transform:translateY(120%); opacity:0;
             transition:transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
         }
-        .sim.picking .fp-arm,.sim.reading .fp-arm{transform:translateY(28%) rotate(-6deg); opacity:1;}
+        .sim.picking .fp-arm{transform:translateY(28%) rotate(-6deg); opacity:1;}
+        /* okuma anında el belgeyi ALTINDAN tutar; imzayı asla kapatmaz */
+        .sim.reading .fp-arm{transform:translateY(58%) rotate(-3deg); opacity:1;}
         .fp-sleeve{position:absolute; left:20%; right:20%; bottom:0; height:66%; border-radius:38% 38% 16% 16%; background:linear-gradient(90deg,#0a1a2a,#1d3e5d 48%,#0b2034);}
         .fp-palm{position:absolute; left:24%; top:2%; width:52%; height:36%; border-radius:45% 45% 40% 40%; background:linear-gradient(90deg,#ad704b,#edba8d 50%,#c8865c);}
         .fp-arm i{position:absolute; top:-3%; width:13%; height:30%; border-radius:45% 45% 35% 35%; background:linear-gradient(90deg,#b67852,#edba8d 52%,#c88961);}
@@ -833,7 +860,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             .form-grid{grid-template-columns:1fr;}
             .id-main{grid-template-columns:1fr 84px;}
             .qr-box{width:84px; height:84px;} #qrCanvas{width:70px; height:70px;}
-            .office-sign{font-size:.5rem;}
+            .office-sign{font-size:.82rem; padding:8px 14px; letter-spacing:.08em;}
         }
         @media (prefers-reduced-motion:reduce){
             *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.2s !important;}
@@ -1009,6 +1036,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
                     <div class="door l"></div>
                     <div class="door r"></div>
                 </div>
+                <div class="ride-fx"></div>
 
                 <div class="dept-panel">
                     <div class="dept-title" data-i18n="deptTitle">DEPARTMAN</div>
@@ -1263,18 +1291,24 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             return new Promise(resolve=>{
                 const start = performance.now();
                 const floor = document.getElementById("floorValue");
+                const sim = document.getElementById("sim");
+                // Gerçek asansör ivmesi: yavaş kalkış -> hızlanma -> sonda kısa fren
+                function ease(p){
+                    if(p < .82){ const q = p / .82; return .9 * q * q * q; }
+                    const q = (p - .82) / .18; return .9 + .1 * (1 - Math.pow(1 - q, 2));
+                }
                 function frame(now){
-                    if(runId !== animationRunId){ resolve(false); return; }
+                    if(runId !== animationRunId){ sim.classList.remove("fast"); resolve(false); return; }
                     const progress = Math.min((now - start) / duration, 1);
-                    const eased = progress < .5 ? 2*progress*progress : 1 - Math.pow(-2*progress+2,2)/2;
-                    let value = Math.floor(target * eased * 2) / 2;
-                    floor.textContent = formatNumber(value);
+                    sim.classList.toggle("fast", progress > .3 && progress < .88);
+                    floor.textContent = formatNumber(Math.floor(target * ease(progress)));
                     if(progress < 1) requestAnimationFrame(frame);
-                    else { floor.textContent = formatNumber(target); resolve(true); }
+                    else { sim.classList.remove("fast"); floor.textContent = formatNumber(target); resolve(true); }
                 }
                 requestAnimationFrame(frame);
             });
         }
+        function buzz(pattern){ try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){} }
         function setStatus(key){ document.getElementById("elevatorStatus").textContent = t(key); }
         function simClass(add, remove){
             const sim = document.getElementById("sim");
@@ -1287,6 +1321,8 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             document.getElementById("floorValue").textContent = "0";
             document.getElementById("lobbyDisplay").textContent = "G";
             document.getElementById("halfLevel").classList.remove("show");
+            document.querySelector(".dept-btn.target").classList.remove("lit");
+            document.querySelector(".floor-ind").classList.remove("ding");
         }
 
         async function playElevatorAnimation(user){
@@ -1306,9 +1342,8 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
 
             loginPanel.hidden = true; dashboard.hidden = true; sim.hidden = false;
 
-            const target = Math.max(0, Number(user.remaining_leave || 0));
-            const hasHalf = Math.abs(target - Math.round(target)) > .001;
-            if(hasHalf) document.getElementById("halfLevel").classList.add("show");
+            // Asansör hedefi: 67. kat (Personel ve Çalışma İlişkileri)
+            const target = 67;
 
             // 1) Lobi: asansör çağrılır, kapı açılır
             setStatus("stCalling");
@@ -1320,18 +1355,21 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             simClass(["stepped"]); setStatus("stEntering");
             if(!(await delay(1900, runId))) return;
 
-            // 3) Departman paneline basılır (el gelir, Personel butonu yanar)
-            simClass(["picking"]); setStatus("stPicking");
+            // 3) Departman paneline basılır (el gelir, Personel butonu yanar ve SEÇİLİ KALIR)
+            simClass(["picking"]); setStatus("stPicking"); buzz(25);
             if(!(await delay(2400, runId))) return;
+            document.querySelector(".dept-btn.target").classList.add("lit");
             simClass([], ["picking"]);
             if(!(await delay(700, runId))) return;
 
-            // 4) Gerçek yolculuk: kapılar kapalı, hafif titreşim, kat yükselir
+            // 4) Gerçek yolculuk: yavaş kalkış -> hızlanma -> fren; kat 67'ye çıkar
             simClass(["riding"]); setStatus("stRising");
-            const floorDone = await animateFloor(target, 15000, runId);
+            const floorDone = await animateFloor(target, 13000, runId);
             if(!floorDone || runId !== animationRunId) return;
             simClass([], ["riding"]);
             document.getElementById("floorValue").textContent = formatNumber(target);
+            document.querySelector(".floor-ind").classList.add("ding");
+            buzz([40, 60, 40]);
             setStatus("stArrived");
             if(!(await delay(1200, runId))) return;
 
@@ -1351,7 +1389,7 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             simClass(["sec-offer"]); setStatus("stDelivery");
             if(!(await delay(1400, runId))) return;
             simClass(["reading"], ["walking"]);
-            if(!(await delay(5600, runId))) return;
+            if(!(await delay(7800, runId))) return;
 
             finishAnimation(runId);
         }
