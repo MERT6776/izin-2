@@ -621,10 +621,10 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .crew-row{position:absolute; z-index:5; left:0; right:0; bottom:15%; display:flex; justify-content:center; align-items:flex-end; gap:clamp(8px,3vw,26px);}
         .crew{position:relative; width:clamp(44px,12vw,78px); height:var(--ch,150px); opacity:0; transform:translateY(20px); transition:opacity .5s ease, transform .7s cubic-bezier(.2,.8,.2,1), filter .5s ease; will-change:transform,opacity;}
         .crew:nth-child(1){--ch:clamp(120px,24vh,168px);}
-        .crew:nth-child(2){--ch:clamp(126px,25vh,176px);}
-        .crew:nth-child(3){--ch:clamp(150px,30vh,210px);}   /* Semih — biraz uzun boylu */
-        .crew:nth-child(4){--ch:clamp(122px,24vh,170px);}
-        .crew:nth-child(5){--ch:clamp(128px,25vh,180px);}
+        .crew:nth-child(2){--ch:clamp(168px,34vh,240px);}   /* arkada duran — baya uzun boylu */
+        .crew:nth-child(3){--ch:clamp(128px,25vh,178px);}   /* Semih — normal boy */
+        .crew:nth-child(4){--ch:clamp(124px,24vh,172px);}
+        .crew:nth-child(5){--ch:clamp(130px,25vh,182px);}
         .sim.in-office .crew{opacity:1; transform:none;}
         .sim.in-office .crew:nth-child(1){transition-delay:.05s;}
         .sim.in-office .crew:nth-child(2){transition-delay:.15s;}
@@ -635,9 +635,17 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
         .crew .c-head{position:absolute; left:50%; top:0; transform:translateX(-50%); width:42%; aspect-ratio:1; border-radius:50%; background:linear-gradient(90deg,#c68a5e,var(--skin,#e6b183) 55%,#cf9366);}
         .crew .c-hair{position:absolute; left:50%; top:-2%; transform:translateX(-50%); width:47%; height:26%; border-radius:50% 50% 42% 42%; background:var(--hair,#241a14);}
         .crew .c-body{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:100%; height:64%; border-radius:46% 46% 18% 18% / 62% 62% 14% 14%; background:var(--suit,#2b5170); box-shadow:inset 0 8px 14px rgba(255,255,255,.1), inset 0 -8px 14px rgba(0,0,0,.15);}
-        /* Semih öne çıkar */
+        /* Semih öne çıkar ve sahnede biraz durur (hafif salınım) */
         .sim.crew-step .crew{filter:brightness(.82);}
-        .sim.crew-step .crew.semih{filter:none; transform:translateY(42%) scale(1.5); z-index:9;}
+        .sim.crew-step .crew.semih{filter:none; z-index:9; animation:semihIn 4.8s ease forwards;}
+        @keyframes semihIn{
+            0%{transform:translateY(0) scale(1);}
+            16%{transform:translateY(42%) scale(1.5);}
+            40%{transform:translateY(39%) scale(1.5);}
+            62%{transform:translateY(43%) scale(1.5);}
+            84%{transform:translateY(39.5%) scale(1.5);}
+            100%{transform:translateY(42%) scale(1.5);}
+        }
         /* isim rozeti */
         .name-badge{position:absolute; z-index:10; left:50%; bottom:7%; transform:translate(-50%,14px); padding:9px 20px; border-radius:14px; text-align:center; background:rgba(6,26,46,.94); border:1px solid var(--primary); box-shadow:0 12px 30px rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .5s ease, transform .5s ease;}
         .name-badge .nb-name{display:block; color:#eaf7ff; font-weight:1000; font-size:clamp(1rem,4vw,1.35rem); letter-spacing:.01em;}
@@ -1462,9 +1470,9 @@ HTML_SAYFASI = r'''<!DOCTYPE html>
             simClass(["exiting","in-office"]); setStatus("stCrew");
             if(!(await delay(2000, runId))) return;   // 5 kişilik ekip belirsin
 
-            // Semih Bayat öne çıkar, adı görünür
+            // Semih Bayat öne çıkar, adı görünür — sahne biraz uzun
             simClass(["crew-step"]); setStatus("stSemih"); buzz(20);
-            if(!(await delay(2600, runId))) return;
+            if(!(await delay(4800, runId))) return;
 
             // Onaylı belge yumuşakça merkeze gelir
             simClass(["reading"]); setStatus("stDelivery");
